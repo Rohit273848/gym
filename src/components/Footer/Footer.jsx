@@ -18,11 +18,13 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-12 gap-10 pb-16 border-b border-zinc-800/80">
           {/* Brand Info */}
           <div className="md:col-span-5 space-y-4">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-red-600 to-red-900 p-0.5 shadow-lg shadow-red-900/30">
-                <div className="w-full h-full bg-[#050507] rounded-[7px] flex items-center justify-center">
-                  <img src="/images/logo.png" alt="Fitness Heaven Logo" className="w-6 h-6 object-contain" />
-                </div>
+            <div className="flex items-center gap-3.5">
+              <div className="p-1 bg-white rounded-xl shadow-md border border-zinc-200 flex items-center justify-center">
+                <img
+                  src="/images/logo.png"
+                  alt="Fitness Heaven Gym Official Logo"
+                  className="h-10 w-auto object-contain rounded-lg"
+                />
               </div>
               <div className="flex flex-col">
                 <span className="font-heading font-black text-lg tracking-wider text-white leading-none">

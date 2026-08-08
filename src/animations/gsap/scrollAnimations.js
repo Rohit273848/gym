@@ -83,34 +83,60 @@ export function initScrollReveals() {
   return ctx;
 }
 
-export function initPinnedFacilities(containerRef, updateActiveIndex) {
+export function initFacilitiesEntrance(containerRef) {
   if (!containerRef.current) return;
 
-  const ctx = gsap.context(() => {
-    const mm = gsap.matchMedia();
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (prefersReducedMotion) return;
 
-    // Desktop Pinned Scroll Showcase
-    mm.add("(min-width: 1024px)", () => {
-      const totalItems = 10;
-      
-      ScrollTrigger.create({
+  const ctx = gsap.context(() => {
+    const tl = gsap.timeline({
+      scrollTrigger: {
         trigger: containerRef.current,
-        start: 'top top',
-        end: `+=${totalItems * 350}`,
-        pin: true,
-        scrub: 0.5,
-        onUpdate: (self) => {
-          const progress = self.progress;
-          const index = Math.min(
-            Math.floor(progress * totalItems),
-            totalItems - 1
-          );
-          if (updateActiveIndex) {
-            updateActiveIndex(index);
-          }
-        }
-      });
+        start: 'top 75%',
+      }
     });
+
+    // 1. Heading reveals upward
+    tl.fromTo('.gsap-fac-heading',
+      { y: 40, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.8, ease: 'power3.out' }
+    );
+
+    // 2. Subheading fades in
+    tl.fromTo('.gsap-fac-subheading',
+      { y: 20, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.6, ease: 'power3.out' },
+      "-=0.4"
+    );
+
+    // 3. Stats row
+    tl.fromTo('.gsap-fac-stat',
+      { y: 20, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.5, stagger: 0.08, ease: 'power3.out' },
+      "-=0.3"
+    );
+
+    // 4. Facility items stagger into view
+    tl.fromTo('.gsap-fac-item',
+      { y: 35, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.7, stagger: 0.08, ease: 'power3.out' },
+      "-=0.2"
+    );
+
+    // 5. Numbers reveal with subtle movement
+    tl.fromTo('.gsap-fac-num',
+      { opacity: 0, scale: 0.8 },
+      { opacity: 1, scale: 1, duration: 0.5, stagger: 0.06 },
+      "-=0.6"
+    );
+
+    // 6. Accent lines animate horizontally
+    tl.fromTo('.gsap-fac-line',
+      { scaleX: 0, transformOrigin: 'left center' },
+      { scaleX: 1, duration: 0.8, stagger: 0.06, ease: 'power2.inOut' },
+      "-=0.5"
+    );
   }, containerRef);
 
   return ctx;

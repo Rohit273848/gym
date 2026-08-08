@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import { useGSAP } from '@gsap/react';
-import { ArrowDown, CreditCard, ChevronRight, Dumbbell } from 'lucide-react';
+import { ArrowDown, CreditCard, ChevronRight } from 'lucide-react';
 import { GYM_DATA } from '../../data/gymData';
 import { animateHero } from '../../animations/gsap/heroAnimations';
 import { initHeroParallax } from '../../animations/gsap/parallax';
@@ -55,10 +55,10 @@ export default function Hero() {
       id="hero"
       className="relative min-h-screen flex flex-col justify-between overflow-hidden bg-[#070709] pt-28 pb-12"
     >
-      {/* Background Image with GSAP scale & parallax */}
+      {/* Background Image in Original Colors */}
       <div
         ref={bgRef}
-        className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat filter brightness-90"
+        className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat"
         style={{ backgroundImage: `url('/images/hero.png')` }}
       />
 
@@ -71,10 +71,12 @@ export default function Hero() {
       {/* Hero Content */}
       <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full my-auto py-12">
         <div className="max-w-4xl">
-          {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-red-950/60 border border-red-800/40 text-red-400 text-xs font-bold tracking-widest uppercase mb-6 backdrop-blur-sm">
-            <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
-            Fitness Heaven Gym &amp; Sports
+          {/* Eyebrow Badge with Official Logo Emblem (True Colors) */}
+          <div className="inline-flex items-center gap-3 px-4 py-1.5 rounded-full bg-red-950/70 border border-red-800/40 text-red-400 text-xs font-heading font-extrabold tracking-widest uppercase mb-6 backdrop-blur-md shadow-lg shadow-red-950/40">
+            <div className="p-0.5 bg-white rounded-md flex items-center justify-center">
+              <img src="/images/logo.png" alt="Fitness Heaven Logo Emblem" className="h-5 w-auto object-contain rounded" />
+            </div>
+            <span>Fitness Heaven Gym &amp; Sports</span>
           </div>
 
           {/* Main Line-by-Line Editorial Heading */}
@@ -105,13 +107,13 @@ export default function Hero() {
           <div ref={buttonsRef} className="flex flex-wrap items-center gap-4 sm:gap-6 mb-16">
             <a
               href="#membership"
-              className="px-8 py-4 bg-red-600 hover:bg-red-700 text-white font-heading font-extrabold text-sm sm:text-base tracking-widest uppercase rounded-full shadow-xl shadow-red-600/30 transition-all hover:shadow-red-600/50 hover:-translate-y-1 flex items-center gap-3"
+              className="btn-base btn-primary text-sm tracking-widest uppercase shadow-xl shadow-red-600/30"
             >
               VIEW MEMBERSHIPS <ChevronRight className="w-5 h-5" />
             </a>
             <a
               href="#payment"
-              className="px-8 py-4 bg-zinc-900/80 hover:bg-zinc-800 text-white border border-zinc-700/80 hover:border-red-500/50 font-heading font-bold text-sm sm:text-base tracking-widest uppercase rounded-full backdrop-blur-md transition-all hover:-translate-y-1 flex items-center gap-3"
+              className="btn-base btn-secondary text-sm tracking-widest uppercase"
             >
               PAY VIA UPI <CreditCard className="w-5 h-5 text-red-500" />
             </a>

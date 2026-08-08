@@ -83,7 +83,7 @@ export default function PersonalTraining({ onSelectPlan }) {
             <img
               src="/images/hero.png"
               alt="Fitness Trainer at Gym"
-              className="gsap-clip-reveal absolute inset-0 w-full h-full object-cover filter contrast-110 brightness-90 transition-transform duration-700 group-hover:scale-105"
+              className="gsap-clip-reveal absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-[#070709] via-transparent to-transparent opacity-85" />
             

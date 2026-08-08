@@ -1,36 +1,52 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useId } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { CreditCard, QrCode, Copy, CheckCircle, Smartphone, Send, Info, ShieldCheck } from 'lucide-react';
+import { CreditCard, QrCode, Copy, CheckCircle, Smartphone, Send, Info, ShieldCheck, AlertCircle } from 'lucide-react';
 import { GYM_DATA } from '../../data/gymData';
 
 export default function Payment({ selectedAmount, selectedPlanName }) {
+  const nameErrorId = useId();
+  const mobileErrorId = useId();
+
+  // Centralized plan options derived from single source of truth in GYM_DATA
+  const planOptions = [
+    ...GYM_DATA.memberships.map((m) => ({
+      value: m.price.toString(),
+      name: `${m.name} Membership`,
+      label: `${m.name} Membership — ${m.priceFormatted}${m.badge ? ` (${m.badge})` : ''}`
+    })),
+    ...GYM_DATA.personalTraining.plans.map((pt) => ({
+      value: pt.price.toString(),
+      name: `${pt.name} Personal Training`,
+      label: `Personal Training – ${pt.name} — ${pt.priceFormatted}`
+    }))
+  ];
+
+  const defaultOption = planOptions[0];
+
   const [fullName, setFullName] = useState('');
   const [mobileNum, setMobileNum] = useState('');
-  const [planVal, setPlanVal] = useState('2100');
-  const [planName, setPlanName] = useState('1 Month Membership');
-  const [amount, setAmount] = useState('2100');
+  const [planVal, setPlanVal] = useState(defaultOption.value);
+  const [planName, setPlanName] = useState(defaultOption.name);
+  const [amount, setAmount] = useState(defaultOption.value);
   const [notes, setNotes] = useState('');
   const [copied, setCopied] = useState(false);
+  const [errors, setErrors] = useState({});
+  const [desktopHintVisible, setDesktopHintVisible] = useState(false);
 
-  // Sync external plan selection if passed from prop
+  // Sync external plan selection when user clicks a plan CTA elsewhere on the page
   useEffect(() => {
     if (selectedAmount) {
-      setAmount(selectedAmount.toString());
-      setPlanVal(selectedAmount.toString());
+      const amountStr = selectedAmount.toString();
+      setAmount(amountStr);
+      setPlanVal(amountStr);
       if (selectedPlanName) {
         setPlanName(selectedPlanName);
+      } else {
+        const found = planOptions.find((p) => p.value === amountStr);
+        if (found) setPlanName(found.name);
       }
     }
   }, [selectedAmount, selectedPlanName]);
-
-  const planOptions = [
-    { value: '2100', name: '1 Month Membership', label: '1 Month Membership — ₹2,100' },
-    { value: '5200', name: '3 Month Membership', label: '3 Month Membership — ₹5,200 (Popular)' },
-    { value: '7300', name: '6 Month Membership', label: '6 Month Membership — ₹7,300' },
-    { value: '12400', name: '12 Month Membership', label: '12 Month Membership — ₹12,400 (Best Value)' },
-    { value: '8000', name: '12 Days Personal Training', label: 'Personal Training – 12 Days — ₹8,000' },
-    { value: '10000', name: '1 Month Personal Training', label: 'Personal Training – 1 Month — ₹10,000' },
-  ];
 
   const handlePlanSelectChange = (e) => {
     const val = e.target.value;
@@ -42,28 +58,45 @@ export default function Payment({ selectedAmount, selectedPlanName }) {
     }
   };
 
-  // Generate UPI URI
+  // Dynamic UPI Payment Link & QR URL
   const upiUri = `upi://pay?pa=${encodeURIComponent(GYM_DATA.payment.upiId)}&pn=${encodeURIComponent(GYM_DATA.payment.merchant)}&am=${amount}&cu=INR&tn=${encodeURIComponent(planName + (fullName ? ' - ' + fullName : ''))}`;
   const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=260x260&data=${encodeURIComponent(upiUri)}`;
 
   const handleCopyUpi = () => {
-    navigator.clipboard.writeText(GYM_DATA.payment.upiId);
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(GYM_DATA.payment.upiId);
+    }
     setCopied(true);
     setTimeout(() => setCopied(false), 2500);
   };
 
+  const validateForm = () => {
+    const newErrors = {};
+
+    if (!fullName.trim()) {
+      newErrors.fullName = 'Full Name is required.';
+    }
+
+    const indianMobileRegex = /^[6-9]\d{9}$/;
+    if (!mobileNum.trim()) {
+      newErrors.mobileNum = 'Mobile Number is required.';
+    } else if (!indianMobileRegex.test(mobileNum.trim())) {
+      newErrors.mobileNum = 'Please enter a valid 10-digit Indian mobile number.';
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
   const handlePayNowSubmit = (e) => {
     e.preventDefault();
-    if (!fullName || !mobileNum || !amount) {
-      alert('Please fill out your name, 10-digit mobile number, and select a plan.');
-      return;
-    }
+    if (!validateForm()) return;
 
     const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
     if (isMobile) {
       window.location.href = upiUri;
     } else {
-      alert('On desktop, please scan the QR code using your phone UPI app (GPay / PhonePe / Paytm / BHIM).');
+      setDesktopHintVisible(true);
     }
   };
 
@@ -75,70 +108,97 @@ export default function Payment({ selectedAmount, selectedPlanName }) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16 sm:mb-20">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-950/40 border border-red-800/30 text-red-500 text-xs font-bold tracking-widest uppercase mb-4">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-red-950/40 border border-red-800/30 text-red-500 text-xs font-heading font-extrabold tracking-widest uppercase mb-4">
             <ShieldCheck className="w-4 h-4 text-red-500" />
-            INSTANT &amp; SECURE CHECKOUT
+            INSTANT CHECKOUT
           </div>
           <h2 className="gsap-reveal-title font-heading font-black text-4xl sm:text-6xl tracking-tight leading-[0.95] uppercase text-white mb-4">
             SECURE <span className="text-red-500">UPI PAYMENT</span>
           </h2>
-          <p className="text-lg sm:text-xl text-zinc-400 font-normal">
+          <p className="text-base sm:text-lg text-zinc-400 font-normal">
             Select your plan and pay using UPI. You can scan the QR code with any UPI app.
           </p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          {/* Left Column: Interactive Form */}
+          {/* Left Column: Accessible Form */}
           <div className="lg:col-span-7 bg-zinc-900/70 border border-zinc-800 rounded-3xl p-6 sm:p-10 shadow-2xl backdrop-blur-md">
             <h3 className="font-heading font-black text-2xl text-white uppercase tracking-tight mb-8 flex items-center gap-3">
               <CreditCard className="w-6 h-6 text-red-500" /> Payment Details
             </h3>
 
-            <form onSubmit={handlePayNowSubmit} className="space-y-6">
+            <form onSubmit={handlePayNowSubmit} noValidate className="space-y-6">
               {/* Full Name */}
               <div>
-                <label className="block text-xs font-heading font-extrabold tracking-wider text-zinc-300 uppercase mb-2">
+                <label htmlFor="full-name-input" className="block text-xs font-heading font-extrabold tracking-wider text-zinc-300 uppercase mb-2">
                   Full Name <span className="text-red-500">*</span>
                 </label>
                 <input
+                  id="full-name-input"
                   type="text"
                   required
                   placeholder="Your full name"
                   value={fullName}
-                  onChange={(e) => setFullName(e.target.value)}
-                  className="w-full px-4 py-3.5 bg-zinc-950/80 border border-zinc-800 focus:border-red-600 rounded-xl text-white text-sm outline-none transition-all focus:ring-1 focus:ring-red-600"
+                  aria-invalid={!!errors.fullName}
+                  aria-describedby={errors.fullName ? nameErrorId : undefined}
+                  onChange={(e) => {
+                    setFullName(e.target.value);
+                    if (errors.fullName) setErrors({ ...errors, fullName: null });
+                  }}
+                  className={`w-full px-4 py-3.5 bg-zinc-950/80 border rounded-xl text-white text-sm outline-none transition-all ${
+                    errors.fullName ? 'border-red-500 focus:ring-1 focus:ring-red-500' : 'border-zinc-800 focus:border-red-600 focus:ring-1 focus:ring-red-600'
+                  }`}
                 />
+                {errors.fullName && (
+                  <p id={nameErrorId} role="alert" className="mt-1.5 text-xs font-semibold text-red-400 flex items-center gap-1">
+                    <AlertCircle className="w-3.5 h-3.5 shrink-0" /> {errors.fullName}
+                  </p>
+                )}
               </div>
 
               {/* Mobile Number */}
               <div>
-                <label className="block text-xs font-heading font-extrabold tracking-wider text-zinc-300 uppercase mb-2">
+                <label htmlFor="mobile-num-input" className="block text-xs font-heading font-extrabold tracking-wider text-zinc-300 uppercase mb-2">
                   Mobile Number <span className="text-red-500">*</span>
                 </label>
                 <input
+                  id="mobile-num-input"
                   type="tel"
                   required
-                  pattern="[0-9]{10}"
                   maxLength={10}
                   placeholder="10-digit mobile number"
                   value={mobileNum}
-                  onChange={(e) => setMobileNum(e.target.value)}
-                  className="w-full px-4 py-3.5 bg-zinc-950/80 border border-zinc-800 focus:border-red-600 rounded-xl text-white text-sm outline-none transition-all focus:ring-1 focus:ring-red-600"
+                  aria-invalid={!!errors.mobileNum}
+                  aria-describedby={errors.mobileNum ? mobileErrorId : undefined}
+                  onChange={(e) => {
+                    const val = e.target.value.replace(/\D/g, '');
+                    setMobileNum(val);
+                    if (errors.mobileNum) setErrors({ ...errors, mobileNum: null });
+                  }}
+                  className={`w-full px-4 py-3.5 bg-zinc-950/80 border rounded-xl text-white text-sm outline-none transition-all ${
+                    errors.mobileNum ? 'border-red-500 focus:ring-1 focus:ring-red-500' : 'border-zinc-800 focus:border-red-600 focus:ring-1 focus:ring-red-600'
+                  }`}
                 />
+                {errors.mobileNum && (
+                  <p id={mobileErrorId} role="alert" className="mt-1.5 text-xs font-semibold text-red-400 flex items-center gap-1">
+                    <AlertCircle className="w-3.5 h-3.5 shrink-0" /> {errors.mobileNum}
+                  </p>
+                )}
               </div>
 
               {/* Select Plan */}
               <div>
-                <label className="block text-xs font-heading font-extrabold tracking-wider text-zinc-300 uppercase mb-2">
+                <label htmlFor="plan-select-input" className="block text-xs font-heading font-extrabold tracking-wider text-zinc-300 uppercase mb-2">
                   Select Plan <span className="text-red-500">*</span>
                 </label>
                 <select
+                  id="plan-select-input"
                   value={planVal}
                   onChange={handlePlanSelectChange}
                   className="w-full px-4 py-3.5 bg-zinc-950/80 border border-zinc-800 focus:border-red-600 rounded-xl text-white text-sm outline-none transition-all focus:ring-1 focus:ring-red-600 cursor-pointer"
                 >
-                  {planOptions.map((opt) => (
-                    <option key={opt.value + opt.name} value={opt.value} className="bg-zinc-900 text-white">
+                  {planOptions.map((opt, i) => (
+                    <option key={opt.value + i} value={opt.value} className="bg-zinc-900 text-white">
                       {opt.label}
                     </option>
                   ))}
@@ -147,23 +207,26 @@ export default function Payment({ selectedAmount, selectedPlanName }) {
 
               {/* Amount */}
               <div>
-                <label className="block text-xs font-heading font-extrabold tracking-wider text-zinc-300 uppercase mb-2">
+                <label htmlFor="amount-input" className="block text-xs font-heading font-extrabold tracking-wider text-zinc-300 uppercase mb-2">
                   Amount (₹)
                 </label>
                 <input
+                  id="amount-input"
                   type="text"
                   readOnly
+                  aria-readonly="true"
                   value={`₹${Number(amount).toLocaleString('en-IN')}`}
-                  className="w-full px-4 py-3.5 bg-zinc-950/90 border border-zinc-800 font-heading font-extrabold text-xl text-red-500 rounded-xl outline-none"
+                  className="w-full px-4 py-3.5 bg-zinc-950/90 border border-zinc-800 font-heading font-black text-xl text-red-500 rounded-xl outline-none"
                 />
               </div>
 
               {/* Notes */}
               <div>
-                <label className="block text-xs font-heading font-extrabold tracking-wider text-zinc-300 uppercase mb-2">
+                <label htmlFor="notes-input" className="block text-xs font-heading font-extrabold tracking-wider text-zinc-300 uppercase mb-2">
                   Notes (optional)
                 </label>
                 <input
+                  id="notes-input"
                   type="text"
                   placeholder="Any specific fitness goal or query?"
                   value={notes}
@@ -172,26 +235,38 @@ export default function Payment({ selectedAmount, selectedPlanName }) {
                 />
               </div>
 
+              {/* Desktop Inline Hint */}
+              <AnimatePresence>
+                {desktopHintVisible && (
+                  <motion.div
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: 'auto' }}
+                    exit={{ opacity: 0, height: 0 }}
+                    className="p-4 bg-red-950/60 border border-red-800/50 rounded-2xl text-xs text-red-200 flex items-start gap-2.5"
+                  >
+                    <Info className="w-4 h-4 text-red-400 shrink-0 mt-0.5" />
+                    <div>
+                      <strong>Desktop User Note:</strong> UPI apps cannot be opened directly from a desktop browser. Please scan the QR code on the right with your phone (GPay / PhonePe / Paytm / BHIM) to complete payment.
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+
               {/* Submit CTA */}
               <button
                 type="submit"
-                className="w-full py-4 bg-red-600 hover:bg-red-700 text-white font-heading font-black text-sm tracking-widest uppercase rounded-xl shadow-xl shadow-red-600/30 transition-all flex items-center justify-center gap-3"
+                className="w-full py-4 bg-red-600 hover:bg-red-700 active:scale-[0.99] text-white font-heading font-black text-sm tracking-widest uppercase rounded-xl shadow-xl shadow-red-600/30 transition-all flex items-center justify-center gap-3"
               >
                 <Smartphone className="w-5 h-5" /> PAY NOW VIA UPI
               </button>
-
-              <p className="text-xs text-zinc-400 text-center flex items-center justify-center gap-1.5 leading-relaxed">
-                <Info className="w-4 h-4 text-red-400 shrink-0" />
-                {GYM_DATA.payment.desktopNotice}
-              </p>
             </form>
           </div>
 
-          {/* Right Column: Dynamic QR & Steps */}
+          {/* Right Column: Dynamic QR Code & Instructions */}
           <div className="lg:col-span-5 space-y-6">
             {/* UPI ID Box */}
             <div className="bg-zinc-900/80 border border-zinc-800 rounded-3xl p-6 backdrop-blur-md">
-              <div className="text-[11px] font-heading font-bold text-zinc-400 uppercase tracking-widest mb-1">
+              <div className="text-[11px] font-heading font-extrabold text-zinc-400 uppercase tracking-widest mb-1">
                 UPI ID (COPYABLE)
               </div>
               <div className="flex items-center justify-between gap-3">
@@ -199,16 +274,17 @@ export default function Payment({ selectedAmount, selectedPlanName }) {
                   {GYM_DATA.payment.upiId}
                 </span>
                 <button
+                  type="button"
                   onClick={handleCopyUpi}
-                  className="px-3.5 py-2 bg-zinc-800 hover:bg-zinc-700 text-white text-xs font-bold rounded-xl border border-zinc-700 flex items-center gap-2 transition-colors shrink-0"
+                  className="px-4 py-2 bg-zinc-800 hover:bg-zinc-700 active:scale-95 text-white text-xs font-bold rounded-xl border border-zinc-700 flex items-center gap-2 transition-all shrink-0"
                 >
                   {copied ? (
-                    <span className="text-emerald-400 flex items-center gap-1">
-                      <CheckCircle className="w-4 h-4" /> Copied!
+                    <span className="text-emerald-400 font-bold flex items-center gap-1.5">
+                      <CheckCircle className="w-4 h-4" /> ✓ Copied
                     </span>
                   ) : (
-                    <span className="flex items-center gap-1">
-                      <Copy className="w-4 h-4" /> Copy UPI ID
+                    <span className="flex items-center gap-1.5">
+                      <Copy className="w-4 h-4" /> COPY UPI ID
                     </span>
                   )}
                 </button>
@@ -230,11 +306,11 @@ export default function Payment({ selectedAmount, selectedPlanName }) {
                   transition={{ duration: 0.25 }}
                   className="w-56 h-56 mx-auto p-3 bg-white rounded-2xl shadow-xl flex items-center justify-center mb-4"
                 >
-                  <img src={qrUrl} alt="UPI QR Code" className="w-full h-full object-contain" />
+                  <img src={qrUrl} alt={`UPI QR Code for ₹${amount}`} loading="lazy" className="w-full h-full object-contain" />
                 </motion.div>
               </AnimatePresence>
 
-              <div className="flex items-center justify-center gap-3 text-xs font-bold text-zinc-400">
+              <div className="flex items-center justify-center gap-2 text-[11px] font-extrabold text-zinc-400 flex-wrap">
                 {GYM_DATA.payment.supportedApps.map((app) => (
                   <span key={app} className="px-2.5 py-1 bg-zinc-800 rounded-md border border-zinc-700/80">
                     {app}
@@ -243,7 +319,7 @@ export default function Payment({ selectedAmount, selectedPlanName }) {
               </div>
             </div>
 
-            {/* Steps & Screenshot Instruction */}
+            {/* Steps & Screenshot Notice */}
             <div className="bg-zinc-900/80 border border-zinc-800 rounded-3xl p-6 backdrop-blur-md">
               <h4 className="font-heading font-black text-sm text-white uppercase tracking-wider mb-4">
                 HOW IT WORKS
@@ -267,7 +343,7 @@ export default function Payment({ selectedAmount, selectedPlanName }) {
                 href={whatsappUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="w-full py-3 bg-[#25d366] hover:bg-[#20ba5a] text-white font-heading font-bold text-xs tracking-widest uppercase rounded-xl transition-all flex items-center justify-center gap-2 shadow-lg shadow-emerald-950/30"
+                className="w-full py-3.5 bg-[#25d366] hover:bg-[#20ba5a] text-white font-heading font-bold text-xs tracking-widest uppercase rounded-xl transition-all flex items-center justify-center gap-2 shadow-lg shadow-emerald-950/30"
               >
                 <Send className="w-4 h-4" /> Send Payment Screenshot on WhatsApp
               </a>

@@ -55,83 +55,63 @@ export const GYM_DATA = {
   facilities: [
     {
       id: "01",
-      title: "ZUMBA FITNESS",
-      category: "Group Fitness",
-      description: "Enjoy fun and energetic dance workouts with our Zumba sessions. It helps in burning calories, improving coordination, and boosting mood while making exercise enjoyable.",
-      image: "/images/zumba_yoga.png",
-      tag: "Burn Calories & Boost Mood"
+      title: "Zumba Fitness",
+      description: "Fun and energetic dance workouts that help burn calories, improve coordination, and boost mood.",
+      icon: "Music"
     },
     {
       id: "02",
-      title: "YOGA SESSIONS",
-      category: "Mind & Body",
-      description: "Relax your mind and strengthen your body with guided yoga classes. Improve flexibility, posture, and mental peace through regular practice.",
-      image: "/images/zumba_yoga.png",
-      tag: "Flexibility & Peace"
+      title: "Yoga Sessions",
+      description: "Guided yoga sessions focused on flexibility, posture, balance, and mental relaxation.",
+      icon: "Wind"
     },
     {
       id: "03",
-      title: "MMA TRAINING",
-      category: "Combat Sports",
-      description: "Train like a fighter with our Mixed Martial Arts sessions. Learn self-defense techniques, improve stamina, and build full-body strength.",
-      image: "/images/mma.png",
-      tag: "Self Defense & Stamina"
+      title: "MMA Training",
+      description: "Mixed Martial Arts training designed to improve self-defense skills, stamina, coordination, and full-body strength.",
+      icon: "Shield"
     },
     {
       id: "04",
-      title: "KICKBOXING",
-      category: "Combat Sports",
-      description: "High-energy kickboxing workouts designed to improve endurance, agility, and strength. Great for stress relief and fat loss.",
-      image: "/images/mma.png",
-      tag: "High Energy Fat Loss"
+      title: "Kickboxing",
+      description: "High-energy kickboxing workouts focused on endurance, agility, strength, and stress relief.",
+      icon: "Target"
     },
     {
       id: "05",
-      title: "NUTRITION & DIET PLAN",
-      category: "Wellness",
-      description: "Get personalized diet plans based on your fitness goals. Our experts guide you on healthy eating habits for better results.",
-      image: "/images/hero.png",
-      tag: "Personalized Diets"
+      title: "Nutrition & Diet Plan",
+      description: "Personalized nutrition guidance based on individual fitness goals, training requirements, and lifestyle.",
+      icon: "Apple"
     },
     {
       id: "06",
-      title: "WORKOUT PLANS",
-      category: "Training",
-      description: "Customized workout routines tailored to your body type and goals — whether it’s weight loss, muscle gain, or general fitness.",
-      image: "/images/strength.png",
-      tag: "Custom Goal Routines"
+      title: "Workout Plans",
+      description: "Customized workout routines designed for weight loss, muscle gain, strength development, and general fitness.",
+      icon: "ClipboardCheck"
     },
     {
       id: "07",
-      title: "CARDIO TRAINING",
-      category: "Endurance",
-      description: "Boost your heart health with cardio exercises like treadmill, cycling, and more. Helps in burning fat and increasing stamina.",
-      image: "/images/hero.png",
-      tag: "Heart Health & Stamina"
+      title: "Cardio Training",
+      description: "Treadmill, cycling, and other cardio exercises designed to improve cardiovascular fitness, stamina, and calorie expenditure.",
+      icon: "HeartPulse"
     },
     {
       id: "08",
-      title: "STRENGTH TRAINING",
-      category: "Heavy Duty",
-      description: "Build muscle and improve body strength using modern equipment and expert guidance. Suitable for beginners and advanced members.",
-      image: "/images/strength.png",
-      tag: "Jerai & Steel City Iron"
+      title: "Strength Training",
+      description: "Professional-grade equipment and expert guidance for beginners, intermediate members, and advanced lifters.",
+      icon: "Dumbbell"
     },
     {
       id: "09",
-      title: "GROUP ACTIVITIES",
-      category: "Community",
-      description: "Stay motivated with fun group workouts and activities. Train together, stay consistent, and enjoy a positive fitness environment.",
-      image: "/images/zumba_yoga.png",
-      tag: "Positive Environment"
+      title: "Group Activities",
+      description: "Motivating group workouts that encourage consistency, accountability, teamwork, and a positive fitness environment.",
+      icon: "Users"
     },
     {
       id: "10",
-      title: "STEAM BATH",
-      category: "Recovery",
-      description: "Relax and detox your body with our steam bath facility. Helps in muscle recovery, stress relief, and improving blood circulation.",
-      image: "/images/steam.png",
-      tag: "Post-Workout Detox"
+      title: "Steam Bath",
+      description: "A dedicated recovery experience designed for relaxation after training.",
+      icon: "Cloud"
     }
   ],
   memberships: [
@@ -262,6 +242,6 @@ export const GYM_DATA = {
       days: "Everyday",
       hours: "6:00 AM – 10:00 PM"
     },
-    googleMapsUrl: "https://maps.google.com/?q=Hiwale+Patil+Lawns+Beed+By+Pass+Road"
+    googleMapsUrl: "https://www.google.com/maps?ll=19.850031,75.340602&z=15&t=m&hl=en-GB&gl=US&mapclient=embed&cid=16848995828249256121"
   }
 };

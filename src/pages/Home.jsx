@@ -8,6 +8,7 @@ import PersonalTraining from '../components/PersonalTraining/PersonalTraining';
 import Payment from '../components/Payment/Payment';
 import Contact from '../components/Contact/Contact';
 import Footer from '../components/Footer/Footer';
+import FloatingMobileCta from '../components/FloatingMobileCta/FloatingMobileCta';
 import { initScrollReveals } from '../animations/gsap/scrollAnimations';
 
 export default function Home() {
@@ -39,6 +40,7 @@ export default function Home() {
         <Contact />
       </main>
       <Footer />
+      <FloatingMobileCta />
     </div>
   );
 }

@@ -42,9 +42,9 @@
   background: #ef4444;
 }
 
-/* Utilities & Animations */
+/* Design System Utilities */
 .bg-grid-pattern {
-  background-image: radial-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px);
+  background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
   background-size: 32px 32px;
 }
 
@@ -54,31 +54,88 @@
   -webkit-text-fill-color: transparent;
 }
 
-.text-stroke {
-  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.25);
-  color: transparent;
-}
-
-.text-stroke-red {
-  -webkit-text-stroke: 1.5px #ef4444;
-  color: transparent;
-}
-
 .glass-panel {
-  background: rgba(18, 18, 22, 0.7);
+  background: rgba(18, 18, 22, 0.75);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-.glass-panel-red {
-  background: rgba(239, 68, 68, 0.05);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(239, 68, 68, 0.2);
+/* Unified Focus Visible Utility */
+*:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px #ef4444;
 }
 
-/* Utility to ensure clip path reveals work smoothly */
-.clip-hidden {
-  clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
+/* Unified Button Component Utilities */
+.btn-base {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: 0.875rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 0.85rem 1.75rem;
+  border-radius: 9999px;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+  user-select: none;
+}
+
+.btn-primary {
+  background-color: #dc2626;
+  color: #ffffff;
+  box-shadow: 0 10px 25px -5px rgba(220, 38, 38, 0.4);
+}
+
+.btn-primary:hover {
+  background-color: #b91c1c;
+  box-shadow: 0 15px 30px -5px rgba(220, 38, 38, 0.6);
+  transform: translateY(-2px);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.btn-secondary {
+  background-color: rgba(24, 24, 27, 0.8);
+  color: #ffffff;
+  border: 1px solid rgba(63, 63, 70, 0.8);
+  backdrop-filter: blur(8px);
+}
+
+.btn-secondary:hover {
+  background-color: rgba(39, 39, 42, 0.9);
+  border-color: rgba(239, 68, 68, 0.5);
+  color: #ffffff;
+  transform: translateY(-2px);
+}
+
+.btn-secondary:active {
+  transform: translateY(0);
+}
+
+.btn-whatsapp {
+  background-color: #25d366;
+  color: #ffffff;
+  box-shadow: 0 8px 20px -4px rgba(37, 211, 102, 0.35);
+}
+
+.btn-whatsapp:hover {
+  background-color: #20ba5a;
+  transform: translateY(-2px);
+}
+
+/* Reduced Motion Override */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

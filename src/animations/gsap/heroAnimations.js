@@ -3,6 +3,10 @@ import gsap from 'gsap';
 export function animateHero(containerRef, refs) {
   if (!containerRef.current) return;
 
+  // Check reduced motion preference
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (prefersReducedMotion) return;
+
   const { bgRef, overlayRef, headingLinesRef, descRef, buttonsRef, statsRef, scrollIndicatorRef } = refs;
 
   const ctx = gsap.context(() => {
@@ -10,65 +14,59 @@ export function animateHero(containerRef, refs) {
       defaults: { ease: 'power3.out' }
     });
 
-    // 1. Background image scale 1.12 -> 1
+    // Fast, crisp cinematic sequence (< 1.5s total)
     if (bgRef.current) {
       tl.fromTo(bgRef.current, 
-        { scale: 1.15 }, 
-        { scale: 1, duration: 1.8, ease: 'power2.out' }, 
+        { scale: 1.1 }, 
+        { scale: 1, duration: 1.2, ease: 'power2.out' }, 
         0
       );
     }
 
-    // 2. Dark overlay fade in
     if (overlayRef.current) {
       tl.fromTo(overlayRef.current,
         { opacity: 0 },
-        { opacity: 1, duration: 1.2 },
+        { opacity: 1, duration: 0.8 },
         0
       );
     }
 
-    // 3. Heading lines reveal line by line
     if (headingLinesRef.current && headingLinesRef.current.length > 0) {
       tl.fromTo(headingLinesRef.current,
-        { y: 80, opacity: 0 },
-        { y: 0, opacity: 1, duration: 1, stagger: 0.12, ease: 'power4.out' },
-        0.3
+        { y: 50, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.7, stagger: 0.08, ease: 'power4.out' },
+        0.2
       );
     }
 
-    // 4. Supporting text
     if (descRef.current) {
       tl.fromTo(descRef.current,
-        { y: 30, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.8 },
-        "-=0.5"
-      );
-    }
-
-    // 5. CTA buttons
-    if (buttonsRef.current) {
-      tl.fromTo(buttonsRef.current,
-        { y: 25, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.7 },
+        { y: 20, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.5 },
         "-=0.4"
       );
     }
 
-    // 6. Stats appear sequentially
-    if (statsRef.current && statsRef.current.length > 0) {
-      tl.fromTo(statsRef.current,
+    if (buttonsRef.current) {
+      tl.fromTo(buttonsRef.current,
         { y: 20, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.6, stagger: 0.1 },
+        { y: 0, opacity: 1, duration: 0.5 },
         "-=0.3"
       );
     }
 
-    // 7. Scroll indicator
+    if (statsRef.current && statsRef.current.length > 0) {
+      tl.fromTo(statsRef.current,
+        { y: 15, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.4, stagger: 0.06 },
+        "-=0.2"
+      );
+    }
+
     if (scrollIndicatorRef.current) {
       tl.fromTo(scrollIndicatorRef.current,
-        { opacity: 0, y: -10 },
-        { opacity: 1, y: 0, duration: 0.5 },
+        { opacity: 0 },
+        { opacity: 1, duration: 0.4 },
         "-=0.2"
       );
     }
