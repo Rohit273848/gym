@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 import { MapPin, PhoneCall, Clock, Navigation, Phone } from 'lucide-react';
 import { GYM_DATA } from '../../data/gymData';
 
@@ -29,7 +30,14 @@ export default function Contact() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 mb-8">
 
           {/* Address */}
-          <div className="pricing-card group">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.05 }}
+            whileHover={{ y: -6 }}
+            className="pricing-card group"
+          >
             <div className="w-10 h-10 rounded-xl bg-white/[0.05] border border-white/[0.07] flex items-center justify-center mb-6">
               <MapPin className="w-5 h-5 text-white/40" />
             </div>
@@ -48,10 +56,17 @@ export default function Contact() {
               <Navigation className="w-3.5 h-3.5" />
               Get Directions
             </a>
-          </div>
+          </motion.div>
 
           {/* Phone */}
-          <div className="pricing-card group">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.12 }}
+            whileHover={{ y: -6 }}
+            className="pricing-card group"
+          >
             <div className="w-10 h-10 rounded-xl bg-white/[0.05] border border-white/[0.07] flex items-center justify-center mb-6">
               <PhoneCall className="w-5 h-5 text-white/40" />
             </div>
@@ -71,10 +86,17 @@ export default function Contact() {
                 </a>
               ))}
             </div>
-          </div>
+          </motion.div>
 
           {/* Timings */}
-          <div className="pricing-card group">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.18 }}
+            whileHover={{ y: -6 }}
+            className="pricing-card group"
+          >
             <div className="w-10 h-10 rounded-xl bg-white/[0.05] border border-white/[0.07] flex items-center justify-center mb-6">
               <Clock className="w-5 h-5 text-white/40" />
             </div>
@@ -93,11 +115,17 @@ export default function Contact() {
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
               Open 7 Days a Week
             </div>
-          </div>
+          </motion.div>
         </div>
 
         {/* Embedded Google Map */}
-        <div className="relative w-full h-72 sm:h-96 rounded-2xl overflow-hidden border border-white/[0.07] shadow-2xl">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.98 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.25 }}
+          className="relative w-full h-72 sm:h-96 rounded-2xl overflow-hidden border border-white/[0.07] shadow-2xl"
+        >
           <iframe
             title="Fitness Heaven Gym Location Map"
             src={embedUrl}
@@ -106,7 +134,7 @@ export default function Contact() {
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
           />
-        </div>
+        </motion.div>
 
       </div>
     </section>

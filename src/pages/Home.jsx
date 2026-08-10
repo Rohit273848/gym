@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Navbar from '../components/Navbar/Navbar';
 import Hero from '../components/Hero/Hero';
 import About from '../components/About/About';
@@ -13,18 +13,27 @@ import Contact from '../components/Contact/Contact';
 import CTABanner from '../components/CTABanner/CTABanner';
 import Footer from '../components/Footer/Footer';
 import FloatingMobileCta from '../components/FloatingMobileCta/FloatingMobileCta';
+import Preloader from '../components/Preloader/Preloader';
 import { initScrollReveals } from '../animations/gsap/scrollAnimations';
 
 export default function Home() {
   const [selectedPlanAmount, setSelectedPlanAmount] = useState(null);
   const [selectedPlanName, setSelectedPlanName] = useState('');
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  const handlePreloaderComplete = useCallback(() => {
+    setIsLoaded(true);
+  }, []);
 
   useEffect(() => {
-    const scrollCtx = initScrollReveals();
+    let scrollCtx;
+    if (isLoaded) {
+      scrollCtx = initScrollReveals();
+    }
     return () => {
       scrollCtx && scrollCtx.revert();
     };
-  }, []);
+  }, [isLoaded]);
 
   const handleSelectPlan = (amount, name) => {
     setSelectedPlanAmount(amount);
@@ -33,6 +42,7 @@ export default function Home() {
 
   return (
     <div className="bg-[#070709] min-h-screen text-white relative">
+      <Preloader onComplete={handlePreloaderComplete} />
       <Navbar onSelectPlan={handleSelectPlan} />
       <main>
         <Hero />
@@ -52,3 +62,4 @@ export default function Home() {
     </div>
   );
 }
+

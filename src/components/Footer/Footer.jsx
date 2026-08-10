@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 import { MapPin, Phone, Clock } from 'lucide-react';
 import { GYM_DATA } from '../../data/gymData';
 
@@ -84,14 +85,16 @@ export default function Footer() {
               </div>
               <div className="flex items-center gap-3">
                 {socials.map(({ name, href, Icon }) => (
-                  <a
+                  <motion.a
                     key={name}
                     href={href}
+                    whileHover={{ scale: 1.12, y: -2 }}
+                    whileTap={{ scale: 0.94 }}
                     aria-label={`Follow on ${name}`}
                     className="w-8 h-8 rounded-lg bg-white/[0.04] border border-white/[0.07] flex items-center justify-center text-white/35 hover:text-white hover:border-white/20 hover:bg-white/[0.08] transition-all"
                   >
                     <Icon />
-                  </a>
+                  </motion.a>
                 ))}
               </div>
             </div>

@@ -112,7 +112,7 @@ export default function Payment({ selectedAmount, selectedPlanName }) {
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-red-950/40 border border-red-800/40 text-[11px] font-bold text-red-400 uppercase tracking-widest mb-6">
             <Lock className="w-3.5 h-3.5" /> Instant UPI Checkout
           </div>
-          <h2 className="font-display text-[clamp(2.4rem,6vw,5.5rem)] uppercase leading-[0.88] text-white mb-6">
+          <h2 className="gsap-reveal-title font-display text-[clamp(2.4rem,6vw,5.5rem)] uppercase leading-[0.88] text-white mb-6">
             SECURE UPI <span style={{ WebkitTextStroke: '1.5px rgba(255,255,255,0.25)', color: 'transparent' }}>PAYMENT</span>
           </h2>
           <p className="text-sm text-white/40 leading-relaxed max-w-lg mx-auto">
@@ -143,9 +143,11 @@ export default function Payment({ selectedAmount, selectedPlanName }) {
                   {allPlans.map((plan) => {
                     const isSelected = activePlan.id === plan.id;
                     return (
-                      <button
+                      <motion.button
                         key={plan.id}
                         type="button"
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
                         onClick={() => setActivePlan(plan)}
                         className={`relative p-3.5 rounded-xl text-left border transition-all duration-200 flex flex-col justify-between ${
                           isSelected
@@ -166,7 +168,7 @@ export default function Payment({ selectedAmount, selectedPlanName }) {
                         <div className={`font-display text-lg font-bold ${isSelected ? 'text-red-400' : 'text-white'}`}>
                           {plan.priceFormatted}
                         </div>
-                      </button>
+                      </motion.button>
                     );
                   })}
                 </div>
@@ -259,14 +261,20 @@ export default function Payment({ selectedAmount, selectedPlanName }) {
 
                 {/* Action Buttons */}
                 <div className="pt-2 flex flex-col sm:flex-row gap-3">
-                  <button
+                  <motion.button
                     type="submit"
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.97 }}
+                    transition={{ duration: 0.2 }}
                     className="flex-1 py-4 bg-red-600 hover:bg-red-700 active:scale-[0.99] text-white font-heading font-black text-xs tracking-widest uppercase rounded-xl shadow-xl shadow-red-600/35 transition-all flex items-center justify-center gap-2"
                   >
                     <Smartphone className="w-4 h-4" /> Pay via UPI App
-                  </button>
-                  <button
+                  </motion.button>
+                  <motion.button
                     type="button"
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.97 }}
+                    transition={{ duration: 0.2 }}
                     onClick={() => {
                       if (validateForm()) {
                         setActiveTab('qr');
@@ -277,7 +285,7 @@ export default function Payment({ selectedAmount, selectedPlanName }) {
                     className="py-4 px-6 bg-white/[0.06] hover:bg-white/10 border border-white/15 text-white font-heading font-extrabold text-xs tracking-widest uppercase rounded-xl transition-all flex items-center justify-center gap-2"
                   >
                     <QrCode className="w-4 h-4 text-red-400" /> View QR Code
-                  </button>
+                  </motion.button>
                 </div>
               </form>
 
@@ -371,8 +379,10 @@ export default function Payment({ selectedAmount, selectedPlanName }) {
                       {GYM_DATA.payment.upiId}
                     </div>
 
-                    <button
+                    <motion.button
                       type="button"
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
                       onClick={handleCopyUpi}
                       className="w-full py-3 bg-white/10 hover:bg-white/20 active:scale-[0.98] border border-white/20 text-white text-xs font-heading font-extrabold uppercase tracking-widest rounded-xl transition-all flex items-center justify-center gap-2"
                     >
@@ -385,7 +395,7 @@ export default function Payment({ selectedAmount, selectedPlanName }) {
                           <Copy className="w-4 h-4 text-red-400" /> Copy UPI ID
                         </span>
                       )}
-                    </button>
+                    </motion.button>
                   </div>
 
                   <div className="p-4 bg-white/[0.03] border border-white/10 rounded-xl text-xs text-white/50 space-y-2">
@@ -408,14 +418,16 @@ export default function Payment({ selectedAmount, selectedPlanName }) {
                 <span>Show your payment screenshot at reception for instant entry.</span>
               </div>
 
-              <a
+              <motion.a
                 href={whatsappUrl}
                 target="_blank"
                 rel="noreferrer"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
                 className="w-full py-3.5 bg-[#25d366] hover:bg-[#20ba5a] active:scale-[0.99] text-white font-heading font-extrabold text-xs tracking-widest uppercase rounded-xl transition-all flex items-center justify-center gap-2 shadow-lg shadow-emerald-950/40"
               >
                 <Send className="w-4 h-4" /> Send Payment Proof on WhatsApp
-              </a>
+              </motion.a>
             </div>
 
           </div>

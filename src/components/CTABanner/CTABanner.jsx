@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
+import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 
 export default function CTABanner() {
   const [email, setEmail] = useState('');
   const [submitted, setSubmitted] = useState(false);
 
-  // TODO: Connect this CTA to the existing membership/signup hook.
-  // Replace the temporary handler with the real API mutation once a backend endpoint is available.
-  // Expected: POST /api/subscribe { email } → 200 OK
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!email.trim()) return;
@@ -41,7 +39,7 @@ export default function CTABanner() {
           <div className="relative z-10 flex flex-col items-center text-center px-6 py-20 sm:py-28">
             <div className="section-label mb-8">Limited Time Offer</div>
 
-            <h2 className="font-display text-[clamp(2.8rem,7vw,7rem)] uppercase leading-[0.88] text-white mb-4">
+            <h2 className="gsap-reveal-title font-display text-[clamp(2.8rem,7vw,7rem)] uppercase leading-[0.88] text-white mb-4">
               START TRAINING TODAY
             </h2>
             <p
@@ -56,9 +54,13 @@ export default function CTABanner() {
 
             {/* Email CTA */}
             {submitted ? (
-              <div className="flex items-center gap-3 px-6 py-4 bg-red-950/40 border border-red-800/40 rounded-full text-red-300 text-sm font-heading font-bold tracking-widest">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                className="flex items-center gap-3 px-6 py-4 bg-red-950/40 border border-red-800/40 rounded-full text-red-300 text-sm font-heading font-bold tracking-widest"
+              >
                 ✓ &nbsp; We'll be in touch soon!
-              </div>
+              </motion.div>
             ) : (
               <form
                 onSubmit={handleSubmit}
@@ -74,12 +76,15 @@ export default function CTABanner() {
                   onChange={(e) => setEmail(e.target.value)}
                   className="flex-1 w-full px-5 py-3.5 bg-white/[0.05] border border-white/[0.15] focus:border-red-500 rounded-full text-white text-sm placeholder:text-white/25 outline-none transition-colors"
                 />
-                <button
+                <motion.button
                   type="submit"
+                  whileHover={{ scale: 1.04 }}
+                  whileTap={{ scale: 0.96 }}
+                  transition={{ duration: 0.2 }}
                   className="btn-base shrink-0 px-7 py-3.5 bg-red-600 hover:bg-red-700 text-white rounded-full font-heading font-black text-[11px] tracking-widest uppercase flex items-center gap-2 shadow-xl shadow-red-600/35 hover:shadow-red-600/55 transition-all"
                 >
                   Join Now <ArrowRight className="w-4 h-4" />
-                </button>
+                </motion.button>
               </form>
             )}
           </div>

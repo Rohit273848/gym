@@ -67,7 +67,10 @@ export default function PersonalTraining({ onSelectPlan }) {
                     ))}
                   </ul>
 
-                  <button
+                  <motion.button
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.97 }}
+                    transition={{ duration: 0.2 }}
                     onClick={() => handleSelectPt(pt)}
                     className={`w-full py-3.5 rounded-full font-heading font-extrabold text-[11px] tracking-widest uppercase transition-all flex items-center justify-center gap-2 ${pt.highlight
                         ? 'bg-white text-black hover:bg-white/90'
@@ -75,7 +78,7 @@ export default function PersonalTraining({ onSelectPlan }) {
                       }`}
                   >
                     {pt.ctaText} <ArrowRight className="w-3.5 h-3.5" />
-                  </button>
+                  </motion.button>
                 </motion.div>
               ))}
             </div>

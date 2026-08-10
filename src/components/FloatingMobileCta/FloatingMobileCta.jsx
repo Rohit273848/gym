@@ -42,12 +42,14 @@ export default function FloatingMobileCta() {
           transition={{ duration: 0.3 }}
           className="fixed bottom-4 left-4 right-4 z-40 lg:hidden pb-[env(safe-area-inset-bottom)]"
         >
-          <a
+          <motion.a
             href="#payment"
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.96 }}
             className="w-full py-3.5 bg-red-600 active:scale-[0.98] text-white font-heading font-black text-xs tracking-widest uppercase rounded-full shadow-2xl shadow-red-600/60 border border-red-500/50 flex items-center justify-center gap-2"
           >
             JOIN NOW <Zap className="w-4 h-4 fill-current" />
-          </a>
+          </motion.a>
         </motion.div>
       )}
     </AnimatePresence>

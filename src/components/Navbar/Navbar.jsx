@@ -43,6 +43,7 @@ const menuContainerVariants = {
 export default function Navbar({ onSelectPlan }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [hoveredNav, setHoveredNav] = useState(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -70,7 +71,10 @@ export default function Navbar({ onSelectPlan }) {
   ];
 
   return (
-    <header
+    <motion.header
+      initial={{ opacity: 0, y: -20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
       className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ${
         mobileMenuOpen || isScrolled
           ? 'py-4 bg-[#070709]/95 backdrop-blur-xl border-b border-white/10 shadow-xl shadow-black/60'
@@ -79,43 +83,65 @@ export default function Navbar({ onSelectPlan }) {
     >
       <div className="max-w-[1400px] w-full mx-auto px-6 sm:px-10 lg:px-12 flex items-center justify-between">
         {/* Brand Logo */}
-        <a href="#hero" className="flex items-center gap-2 select-none">
+        <motion.a
+          href="#hero"
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
+          className="flex items-center gap-2 select-none"
+        >
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" className="shrink-0">
             <path d="M13 2 3 14h7l-1 8 11-14h-8l1-6z" fill="white" />
           </svg>
           <span className="font-display font-black text-lg tracking-tight uppercase text-white">
             {GYM_DATA.brand.name}
           </span>
-        </a>
+        </motion.a>
 
         {/* Desktop Nav Links */}
         <ul className="hidden md:flex items-center gap-9" aria-label="Main navigation">
           {navItems.map((item, i) => (
-            <li key={item.label}>
+            <li
+              key={item.label}
+              className="relative py-1"
+              onMouseEnter={() => setHoveredNav(item.label)}
+              onMouseLeave={() => setHoveredNav(null)}
+            >
               <a
                 href={item.href}
                 className={`text-[13px] font-medium tracking-wide transition-colors ${
-                  i === 0 ? 'text-white' : 'text-white/50 hover:text-white'
+                  i === 0 || hoveredNav === item.label ? 'text-white' : 'text-white/50'
                 }`}
               >
                 {item.label}
               </a>
+              {/* Subtle hover underline indicator animation */}
+              {hoveredNav === item.label && (
+                <motion.div
+                  layoutId="nav-underline"
+                  className="absolute bottom-0 left-0 right-0 h-[2px] bg-red-500 rounded-full"
+                  transition={{ duration: 0.25, ease: 'easeOut' }}
+                />
+              )}
             </li>
           ))}
         </ul>
 
         {/* Desktop CTA */}
         <div className="hidden sm:flex items-center gap-4">
-          <a
+          <motion.a
             href="#contact"
+            whileHover={{ scale: 1.04 }}
+            whileTap={{ scale: 0.96 }}
+            transition={{ duration: 0.2 }}
             className="inline-flex items-center bg-white text-black text-[12px] font-semibold tracking-wide px-5 py-2.5 rounded-full hover:bg-white/90 transition-all duration-300 shadow-sm shadow-white/10"
           >
             Contact Us
-          </a>
+          </motion.a>
         </div>
 
         {/* Mobile Hamburger Button */}
-        <button
+        <motion.button
+          whileTap={{ scale: 0.92 }}
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           className={`md:hidden p-2.5 rounded-xl border transition-all focus-visible:outline-none ${
             mobileMenuOpen
@@ -127,7 +153,7 @@ export default function Navbar({ onSelectPlan }) {
           aria-controls="mobile-navigation-drawer"
         >
           {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-        </button>
+        </motion.button>
       </div>
 
       {/* Mobile Drawer Full-Screen Overlay Navigation */}
@@ -225,7 +251,8 @@ export default function Navbar({ onSelectPlan }) {
           </motion.div>
         )}
       </AnimatePresence>
-    </header>
+    </motion.header>
   );
 }
+
 

@@ -65,7 +65,7 @@ export default function Trainers() {
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-20">
           <div className="section-label mb-6 mx-auto w-fit">Expert Guidance</div>
-          <h2 className="font-display text-[clamp(2.4rem,5.5vw,5.5rem)] uppercase leading-[0.88] text-white mb-6">
+          <h2 className="gsap-reveal-title font-display text-[clamp(2.4rem,5.5vw,5.5rem)] uppercase leading-[0.88] text-white mb-6">
             MEET OUR ELITE <br />
             <span style={{ WebkitTextStroke: '1.5px rgba(255,255,255,0.25)', color: 'transparent' }}>
               TRAINING TEAM

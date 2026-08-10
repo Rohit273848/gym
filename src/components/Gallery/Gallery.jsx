@@ -97,7 +97,7 @@ export default function Gallery() {
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 sm:mb-24 gap-6">
           <div>
             <div className="section-label mb-6">Inside Fitness Heaven</div>
-            <h2 className="font-display text-[clamp(2.4rem,5.5vw,5.5rem)] uppercase leading-[0.88] text-white">
+            <h2 className="gsap-reveal-title font-display text-[clamp(2.4rem,5.5vw,5.5rem)] uppercase leading-[0.88] text-white">
               EXPLORE OUR <br />
               <span style={{ WebkitTextStroke: '1.5px rgba(255,255,255,0.25)', color: 'transparent' }}>
                 5000 SQ. FT. ARENA

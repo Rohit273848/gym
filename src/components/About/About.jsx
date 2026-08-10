@@ -1,7 +1,9 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 import { Check } from 'lucide-react';
 import { GYM_DATA } from '../../data/gymData';
 import { GYM_IMAGES } from '../../data/gymImages';
+import AnimatedCounter from '../animations/AnimatedCounter';
 
 const welcomeFeatures = [
   { id: 'space', title: '5000 Sq. Ft. Space', desc: 'Fully air-conditioned floor offering maximum comfort.' },
@@ -34,8 +36,15 @@ export default function About() {
 
             {/* Feature list */}
             <ul className="space-y-5">
-              {welcomeFeatures.map((feat) => (
-                <li key={feat.id} className="flex items-start gap-4">
+              {welcomeFeatures.map((feat, idx) => (
+                <motion.li
+                  key={feat.id}
+                  initial={{ opacity: 0, x: -16 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: idx * 0.08 }}
+                  className="flex items-start gap-4"
+                >
                   <div className="w-5 h-5 rounded-full border border-white/15 flex items-center justify-center shrink-0 mt-0.5">
                     <Check className="w-2.5 h-2.5 text-white/70" />
                   </div>
@@ -47,7 +56,7 @@ export default function About() {
                       {feat.desc}
                     </div>
                   </div>
-                </li>
+                </motion.li>
               ))}
             </ul>
           </div>
@@ -70,12 +79,20 @@ export default function About() {
             />
 
             {/* Decorative stat badge */}
-            <div className="absolute top-5 left-[10%] z-20">
+            <motion.div
+              initial={{ scale: 0.8, opacity: 0 }}
+              whileInView={{ scale: 1, opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+              className="absolute top-5 left-[10%] z-20"
+            >
               <div className="glass-panel rounded-xl px-4 py-3 text-center shadow-2xl">
-                <div className="font-display text-3xl text-white leading-none">5000</div>
+                <div className="font-display text-3xl text-white leading-none">
+                  <AnimatedCounter value={5000} duration={1.8} />
+                </div>
                 <div className="text-[9px] font-bold text-white/40 tracking-[0.15em] uppercase mt-1">Sq. Ft.</div>
               </div>
-            </div>
+            </motion.div>
           </div>
 
         </div>
@@ -83,3 +100,4 @@ export default function About() {
     </section>
   );
 }
+

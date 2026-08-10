@@ -1,5 +1,6 @@
 import gsap from 'gsap';
 
+// GSAP timeline controls the hero entrance sequence.
 export function animateHero(containerRef, refs = {}) {
   if (!containerRef?.current) return;
 
@@ -7,18 +8,18 @@ export function animateHero(containerRef, refs = {}) {
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (prefersReducedMotion) return;
 
-  const { bgRef, overlayRef, headingLinesRef, descRef, buttonsRef, statsRef, scrollIndicatorRef, circleRef } = refs;
+  const { bgRef, overlayRef, badgeRef, headingLinesRef, descRef, buttonsRef, statsRef, scrollIndicatorRef, circleRef } = refs;
 
   const ctx = gsap.context(() => {
     const tl = gsap.timeline({
       defaults: { ease: 'power3.out' }
     });
 
-    // Fast, crisp cinematic sequence (< 1.5s total)
+    // Background image entrance reveal: subtle zoom out (1.1 -> 1)
     if (bgRef?.current) {
       tl.fromTo(bgRef.current, 
-        { scale: 1.1 }, 
-        { scale: 1, duration: 1.2, ease: 'power2.out' }, 
+        { scale: 1.08, opacity: 0.7 }, 
+        { scale: 1, opacity: 1, duration: 1.2, ease: 'power2.out' }, 
         0
       );
     }
@@ -31,11 +32,20 @@ export function animateHero(containerRef, refs = {}) {
       );
     }
 
+    if (badgeRef?.current) {
+      tl.fromTo(badgeRef.current,
+        { y: 20, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.5 },
+        0.1
+      );
+    }
+
+    // Line-by-line heading text reveal
     if (headingLinesRef?.current && headingLinesRef.current.length > 0) {
       tl.fromTo(headingLinesRef.current,
-        { y: 50, opacity: 0 },
+        { y: 45, opacity: 0 },
         { y: 0, opacity: 1, duration: 0.7, stagger: 0.08, ease: 'power4.out' },
-        0.2
+        0.15
       );
     }
 
@@ -43,7 +53,7 @@ export function animateHero(containerRef, refs = {}) {
       tl.fromTo(descRef.current,
         { y: 20, opacity: 0 },
         { y: 0, opacity: 1, duration: 0.5 },
-        "-=0.4"
+        "-=0.35"
       );
     }
 
@@ -66,8 +76,8 @@ export function animateHero(containerRef, refs = {}) {
     const indicator = circleRef?.current || scrollIndicatorRef?.current;
     if (indicator) {
       tl.fromTo(indicator,
-        { opacity: 0 },
-        { opacity: 1, duration: 0.4 },
+        { scale: 0.8, opacity: 0 },
+        { scale: 1, opacity: 1, duration: 0.5, ease: 'back.out(1.4)' },
         "-=0.2"
       );
     }
@@ -75,3 +85,4 @@ export function animateHero(containerRef, refs = {}) {
 
   return ctx;
 }
+

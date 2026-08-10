@@ -4,16 +4,19 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
 
 export function initScrollReveals() {
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (prefersReducedMotion) return;
+
   const ctx = gsap.context(() => {
-    // Reveal text headers with upward translation and fade
+    // 1. Reveal text headers with upward translation and fade
     const headings = document.querySelectorAll('.gsap-reveal-title');
     headings.forEach(heading => {
       gsap.fromTo(heading,
-        { y: 40, opacity: 0 },
+        { y: 35, opacity: 0 },
         {
           y: 0,
           opacity: 1,
-          duration: 0.9,
+          duration: 0.85,
           ease: 'power3.out',
           scrollTrigger: {
             trigger: heading,
@@ -24,7 +27,26 @@ export function initScrollReveals() {
       );
     });
 
-    // Feature Cards Stagger
+    // 2. Generic Fade-Up Elements
+    const fadeUps = document.querySelectorAll('.gsap-fade-up');
+    fadeUps.forEach(el => {
+      gsap.fromTo(el,
+        { y: 30, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.8,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: el,
+            start: 'top 85%',
+            toggleActions: 'play none none none'
+          }
+        }
+      );
+    });
+
+    // 3. Feature Cards Stagger
     const featureCards = document.querySelectorAll('.gsap-feature-card');
     if (featureCards.length) {
       gsap.fromTo(featureCards,
@@ -32,8 +54,8 @@ export function initScrollReveals() {
         {
           y: 0,
           opacity: 1,
-          duration: 0.8,
-          stagger: 0.1,
+          duration: 0.75,
+          stagger: 0.08,
           ease: 'power3.out',
           scrollTrigger: {
             trigger: featureCards[0],
@@ -44,16 +66,16 @@ export function initScrollReveals() {
       );
     }
 
-    // Membership Cards Stagger
+    // 4. Membership Cards Stagger
     const membershipCards = document.querySelectorAll('.gsap-membership-card');
     if (membershipCards.length) {
       gsap.fromTo(membershipCards,
-        { y: 45, opacity: 0 },
+        { y: 40, opacity: 0 },
         {
           y: 0,
           opacity: 1,
           duration: 0.8,
-          stagger: 0.1,
+          stagger: 0.09,
           ease: 'power3.out',
           scrollTrigger: {
             trigger: '.membership-cards-grid',
@@ -64,16 +86,16 @@ export function initScrollReveals() {
       );
     }
 
-    // Image Reveals (Smooth Opacity + Scale + ClipPath)
+    // 5. Image Reveals (Smooth Opacity + Scale + ClipPath)
     const clipImages = document.querySelectorAll('.gsap-clip-reveal');
     clipImages.forEach(img => {
       gsap.fromTo(img,
-        { opacity: 0.3, scale: 1.05, clipPath: 'inset(8% 0% 8% 0%)' },
+        { opacity: 0.3, scale: 1.05, clipPath: 'inset(6% 0% 6% 0%)' },
         {
           opacity: 1,
           scale: 1,
           clipPath: 'inset(0% 0% 0% 0%)',
-          duration: 1.1,
+          duration: 1.0,
           ease: 'power3.out',
           scrollTrigger: {
             trigger: img,
@@ -137,3 +159,4 @@ export function initFacilitiesEntrance(containerRef) {
 
   return ctx;
 }
+
