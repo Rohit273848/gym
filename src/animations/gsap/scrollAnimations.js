@@ -5,11 +5,11 @@ gsap.registerPlugin(ScrollTrigger);
 
 export function initScrollReveals() {
   const ctx = gsap.context(() => {
-    // Reveal text headers with clip-path or y-offset
+    // Reveal text headers with upward translation and fade
     const headings = document.querySelectorAll('.gsap-reveal-title');
     headings.forEach(heading => {
       gsap.fromTo(heading,
-        { y: 50, opacity: 0 },
+        { y: 40, opacity: 0 },
         {
           y: 0,
           opacity: 1,
@@ -17,27 +17,28 @@ export function initScrollReveals() {
           ease: 'power3.out',
           scrollTrigger: {
             trigger: heading,
-            start: 'top 85%',
-            toggleActions: 'play none none reverse'
+            start: 'top 88%',
+            toggleActions: 'play none none none'
           }
         }
       );
     });
 
-    // About Features Stagger
+    // Feature Cards Stagger
     const featureCards = document.querySelectorAll('.gsap-feature-card');
     if (featureCards.length) {
       gsap.fromTo(featureCards,
-        { y: 40, opacity: 0 },
+        { y: 35, opacity: 0 },
         {
           y: 0,
           opacity: 1,
           duration: 0.8,
-          stagger: 0.12,
+          stagger: 0.1,
           ease: 'power3.out',
           scrollTrigger: {
-            trigger: '.about-features-container',
-            start: 'top 80%',
+            trigger: featureCards[0],
+            start: 'top 85%',
+            toggleActions: 'play none none none'
           }
         }
       );
@@ -47,44 +48,53 @@ export function initScrollReveals() {
     const membershipCards = document.querySelectorAll('.gsap-membership-card');
     if (membershipCards.length) {
       gsap.fromTo(membershipCards,
-        { y: 50, opacity: 0 },
+        { y: 45, opacity: 0 },
         {
           y: 0,
           opacity: 1,
           duration: 0.8,
-          stagger: 0.12,
+          stagger: 0.1,
           ease: 'power3.out',
           scrollTrigger: {
             trigger: '.membership-cards-grid',
-            start: 'top 80%',
+            start: 'top 82%',
+            toggleActions: 'play none none none'
           }
         }
       );
     }
 
-    // Image Clip Path Reveals
+    // Image Reveals (Smooth Opacity + Scale + ClipPath)
     const clipImages = document.querySelectorAll('.gsap-clip-reveal');
     clipImages.forEach(img => {
       gsap.fromTo(img,
-        { clipPath: 'polygon(0 100%, 100% 100%, 100% 100%, 0 100%)' },
+        { opacity: 0.3, scale: 1.05, clipPath: 'inset(8% 0% 8% 0%)' },
         {
-          clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 100%)',
-          duration: 1.2,
-          ease: 'power4.inOut',
+          opacity: 1,
+          scale: 1,
+          clipPath: 'inset(0% 0% 0% 0%)',
+          duration: 1.1,
+          ease: 'power3.out',
           scrollTrigger: {
             trigger: img,
-            start: 'top 80%'
+            start: 'top 85%',
+            toggleActions: 'play none none none'
           }
         }
       );
     });
   });
 
+  // Force ScrollTrigger refresh after a short tick to accurately measure layouts
+  setTimeout(() => {
+    ScrollTrigger.refresh();
+  }, 100);
+
   return ctx;
 }
 
 export function initFacilitiesEntrance(containerRef) {
-  if (!containerRef.current) return;
+  if (!containerRef?.current) return;
 
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (prefersReducedMotion) return;
@@ -93,50 +103,36 @@ export function initFacilitiesEntrance(containerRef) {
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: containerRef.current,
-        start: 'top 75%',
+        start: 'top 80%',
+        toggleActions: 'play none none none'
       }
     });
 
-    // 1. Heading reveals upward
-    tl.fromTo('.gsap-fac-heading',
-      { y: 40, opacity: 0 },
-      { y: 0, opacity: 1, duration: 0.8, ease: 'power3.out' }
-    );
+    const facHeadings = containerRef.current.querySelectorAll('.gsap-fac-heading');
+    if (facHeadings.length) {
+      tl.fromTo(facHeadings,
+        { y: 35, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.8, stagger: 0.1, ease: 'power3.out' }
+      );
+    }
 
-    // 2. Subheading fades in
-    tl.fromTo('.gsap-fac-subheading',
-      { y: 20, opacity: 0 },
-      { y: 0, opacity: 1, duration: 0.6, ease: 'power3.out' },
-      "-=0.4"
-    );
+    const facSubheading = containerRef.current.querySelector('.gsap-fac-subheading');
+    if (facSubheading) {
+      tl.fromTo(facSubheading,
+        { y: 20, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.6, ease: 'power3.out' },
+        "-=0.4"
+      );
+    }
 
-    // 3. Stats row
-    tl.fromTo('.gsap-fac-stat',
-      { y: 20, opacity: 0 },
-      { y: 0, opacity: 1, duration: 0.5, stagger: 0.08, ease: 'power3.out' },
-      "-=0.3"
-    );
-
-    // 4. Facility items stagger into view
-    tl.fromTo('.gsap-fac-item',
-      { y: 35, opacity: 0 },
-      { y: 0, opacity: 1, duration: 0.7, stagger: 0.08, ease: 'power3.out' },
-      "-=0.2"
-    );
-
-    // 5. Numbers reveal with subtle movement
-    tl.fromTo('.gsap-fac-num',
-      { opacity: 0, scale: 0.8 },
-      { opacity: 1, scale: 1, duration: 0.5, stagger: 0.06 },
-      "-=0.6"
-    );
-
-    // 6. Accent lines animate horizontally
-    tl.fromTo('.gsap-fac-line',
-      { scaleX: 0, transformOrigin: 'left center' },
-      { scaleX: 1, duration: 0.8, stagger: 0.06, ease: 'power2.inOut' },
-      "-=0.5"
-    );
+    const facItems = containerRef.current.querySelectorAll('.gsap-fac-item');
+    if (facItems.length) {
+      tl.fromTo(facItems,
+        { y: 30, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.6, stagger: 0.08, ease: 'power3.out' },
+        "-=0.2"
+      );
+    }
   }, containerRef);
 
   return ctx;

@@ -1,75 +1,78 @@
 import React, { useRef } from 'react';
 import { motion } from 'framer-motion';
-import { ShieldCheck, UserCheck, Dumbbell, Award, ArrowRight } from 'lucide-react';
+import { ShieldCheck, ArrowRight, Check } from 'lucide-react';
 import { GYM_DATA } from '../../data/gymData';
+import { GYM_IMAGES } from '../../data/gymImages';
 
 export default function PersonalTraining({ onSelectPlan }) {
   const containerRef = useRef(null);
 
   const handleSelectPt = (plan) => {
-    if (onSelectPlan) {
-      onSelectPlan(plan.price, plan.name);
-    }
-    const paymentSection = document.getElementById('payment');
-    if (paymentSection) {
-      paymentSection.scrollIntoView({ behavior: 'smooth' });
-    }
+    if (onSelectPlan) onSelectPlan(plan.price, plan.name);
+    const el = document.getElementById('payment');
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
-    <section ref={containerRef} id="training" className="py-24 sm:py-32 bg-[#070709] relative overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-          {/* Left Column: Editorial Heading & Plans */}
+    <section
+      ref={containerRef}
+      id="training"
+      className="py-28 sm:py-36 bg-[#0a0a0d] relative overflow-hidden"
+    >
+      <div className="max-w-[1280px] mx-auto px-5 sm:px-8 lg:px-12 relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+
+          {/* ── Left: Heading & Plans ── */}
           <div className="lg:col-span-7">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-950/40 border border-red-800/30 text-red-500 text-xs font-bold tracking-widest uppercase mb-4">
-              <span className="w-1.5 h-1.5 rounded-full bg-red-500" />
-              1-ON-1 PT SESSIONS
-            </div>
-            <h2 className="gsap-reveal-title font-heading font-black text-4xl sm:text-6xl tracking-tight leading-[0.95] uppercase text-white mb-6">
-              TRAIN SMARTER. <br />
-              <span className="text-red-500">GET RESULTS FASTER.</span>
+            <div className="section-label mb-8">1-on-1 PT Sessions</div>
+            <h2 className="gsap-reveal-title font-display text-[clamp(2.4rem,5.5vw,5.5rem)] uppercase leading-[0.88] text-white mb-8">
+              TRAIN SMARTER.<br />
+              <span
+                className="font-display"
+                style={{ WebkitTextStroke: '1.5px rgba(255,255,255,0.2)', color: 'transparent' }}
+              >
+                GET RESULTS FASTER.
+              </span>
             </h2>
-            <p className="text-lg text-zinc-300 font-normal leading-relaxed mb-10 max-w-xl">
+            <p className="text-sm text-white/40 leading-relaxed mb-12 max-w-md">
               {GYM_DATA.personalTraining.description}
             </p>
 
-            {/* Plans List Cards */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            {/* Plans */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
               {GYM_DATA.personalTraining.plans.map((pt) => (
                 <motion.div
                   key={pt.id}
-                  whileHover={{ y: -6, transition: { duration: 0.2 } }}
-                  className={`p-6 sm:p-7 rounded-3xl border transition-all flex flex-col justify-between ${
-                    pt.highlight
-                      ? 'bg-gradient-to-br from-zinc-900 via-zinc-900 to-red-950/50 border-red-600 shadow-xl shadow-red-950/30'
-                      : 'bg-zinc-900/60 border-zinc-800 hover:border-zinc-700'
-                  }`}
+                  whileHover={{ y: -5, transition: { duration: 0.2 } }}
+                  className={`pricing-card ${pt.highlight ? 'featured' : ''}`}
                 >
-                  <div>
-                    <div className="inline-block px-3 py-0.5 rounded-full bg-red-950/80 border border-red-800/50 text-[10px] font-bold text-red-400 uppercase tracking-widest mb-3">
-                      {pt.badge}
-                    </div>
-                    <h3 className="font-heading font-black text-xl text-white uppercase mb-1">
-                      {pt.name}
-                    </h3>
-                    <div className="font-heading font-black text-3xl text-red-500 mb-4">
-                      {pt.priceFormatted}
-                    </div>
-
-                    <ul className="space-y-2.5 mb-6">
-                      {pt.features.map((f, i) => (
-                        <li key={i} className="flex items-center gap-2.5 text-xs text-zinc-300">
-                          <ShieldCheck className="w-4 h-4 text-red-500 shrink-0" />
-                          <span>{f}</span>
-                        </li>
-                      ))}
-                    </ul>
+                  <div className="text-[9px] font-bold tracking-[0.18em] text-white/25 uppercase mb-3">
+                    {pt.badge}
                   </div>
+                  <h3 className="font-display text-2xl text-white uppercase leading-none mb-3">
+                    {pt.name}
+                  </h3>
+                  <div className="font-display text-4xl text-white leading-none mb-6">
+                    {pt.priceFormatted}
+                  </div>
+
+                  <ul className="space-y-3 mb-8">
+                    {pt.features.map((f, i) => (
+                      <li key={i} className="flex items-center gap-3 text-xs text-white/40">
+                        <div className="w-4 h-4 rounded-full border border-white/12 flex items-center justify-center shrink-0">
+                          <Check className="w-2.5 h-2.5 text-white/50" />
+                        </div>
+                        {f}
+                      </li>
+                    ))}
+                  </ul>
 
                   <button
                     onClick={() => handleSelectPt(pt)}
-                    className="w-full py-3 bg-red-600 hover:bg-red-700 text-white font-heading font-bold text-xs tracking-widest uppercase rounded-full shadow-lg shadow-red-600/30 transition-all flex items-center justify-center gap-2"
+                    className={`w-full py-3.5 rounded-full font-heading font-extrabold text-[11px] tracking-widest uppercase transition-all flex items-center justify-center gap-2 ${pt.highlight
+                        ? 'bg-white text-black hover:bg-white/90'
+                        : 'border border-white/15 text-white/60 hover:border-white/35 hover:text-white'
+                      }`}
                   >
                     {pt.ctaText} <ArrowRight className="w-3.5 h-3.5" />
                   </button>
@@ -78,27 +81,28 @@ export default function PersonalTraining({ onSelectPlan }) {
             </div>
           </div>
 
-          {/* Right Column: Large Trainer Showcase Image */}
-          <div className="lg:col-span-5 relative group min-h-[460px] rounded-3xl overflow-hidden border border-zinc-800 shadow-2xl">
+          {/* ── Right: Large Image ── */}
+          <div className="lg:col-span-5 relative group min-h-[480px] rounded-2xl overflow-hidden border border-white/[0.07] shadow-2xl">
             <img
-              src="/images/hero.png"
-              alt="Fitness Trainer at Gym"
+              src={GYM_IMAGES.gallery.personalTraining}
+              alt="Personal training session at Fitness Heaven"
               className="gsap-clip-reveal absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#070709] via-transparent to-transparent opacity-85" />
-            
-            <div className="absolute bottom-6 left-6 right-6 p-6 bg-zinc-950/90 backdrop-blur-md rounded-2xl border border-zinc-800">
-              <div className="flex items-center gap-3 mb-2">
-                <div className="w-10 h-10 rounded-xl bg-red-600 flex items-center justify-center">
-                  <Award className="w-5 h-5 text-white" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0d] via-transparent to-transparent opacity-90 pointer-events-none" />
+
+            <div className="absolute bottom-6 left-6 right-6 glass-panel rounded-xl p-5">
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center shrink-0">
+                  <ShieldCheck className="w-4 h-4 text-white/70" />
                 </div>
                 <div>
-                  <h4 className="font-heading font-black text-white text-base uppercase">EXPERT FORM CORRECTION</h4>
-                  <p className="text-xs text-zinc-400">Maximize Muscle Engagement &amp; Prevent Injuries</p>
+                  <div className="text-xs font-heading font-black text-white uppercase tracking-wide">Expert Form Correction</div>
+                  <div className="text-[10px] text-white/35 mt-0.5">Maximize results & prevent injuries</div>
                 </div>
               </div>
             </div>
           </div>
+
         </div>
       </div>
     </section>

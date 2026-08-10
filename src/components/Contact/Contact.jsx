@@ -6,106 +6,108 @@ export default function Contact() {
   const embedUrl = "https://maps.google.com/maps?q=19.850031,75.340602&z=15&output=embed";
 
   return (
-    <section id="contact" className="py-24 sm:py-32 bg-[#070709] relative border-t border-zinc-800/80">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <section id="contact" className="py-28 sm:py-36 bg-[#0a0a0d] relative">
+      <div className="max-w-[1280px] mx-auto px-5 sm:px-8 lg:px-12 relative z-10">
+
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16 sm:mb-20">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-red-950/40 border border-red-800/30 text-red-500 text-xs font-heading font-extrabold tracking-widest uppercase mb-4">
-            <MapPin className="w-4 h-4 text-red-500" />
-            VISIT OUR LOCATION
-          </div>
-          <h2 className="gsap-reveal-title font-heading font-black text-4xl sm:text-6xl tracking-tight leading-[0.95] uppercase text-white mb-4">
-            COME TRAIN <span className="text-red-500">WITH US.</span>
+        <div className="mb-16 sm:mb-20">
+          <div className="section-label mb-8">Visit Our Location</div>
+          <h2 className="gsap-reveal-title font-display text-[clamp(2.6rem,6vw,6rem)] uppercase leading-[0.88] text-white max-w-2xl">
+            COME TRAIN<br />
+            <span
+              style={{ WebkitTextStroke: '1.5px rgba(255,255,255,0.2)', color: 'transparent' }}
+            >
+              WITH US.
+            </span>
           </h2>
-          <p className="text-base sm:text-lg text-zinc-400 font-normal">
+          <p className="text-sm text-white/35 mt-6 max-w-xs leading-relaxed">
             Visit us and feel the energy in person.
           </p>
         </div>
 
         {/* Contact Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 items-stretch mb-12">
-          {/* Card 1: Address */}
-          <div className="bg-zinc-900/60 border border-zinc-800 rounded-3xl p-8 text-center flex flex-col justify-between hover:border-red-600/40 transition-colors">
-            <div>
-              <div className="w-14 h-14 mx-auto rounded-2xl bg-red-950/80 border border-red-800/60 flex items-center justify-center mb-6">
-                <MapPin className="w-7 h-7 text-red-500" />
-              </div>
-              <h3 className="font-heading font-black text-xl text-white uppercase tracking-tight mb-4">
-                GYM ADDRESS
-              </h3>
-              <p className="text-zinc-300 text-sm leading-relaxed font-normal whitespace-pre-line mb-6">
-                {GYM_DATA.contact.address}
-              </p>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 mb-8">
+
+          {/* Address */}
+          <div className="pricing-card group">
+            <div className="w-10 h-10 rounded-xl bg-white/[0.05] border border-white/[0.07] flex items-center justify-center mb-6">
+              <MapPin className="w-5 h-5 text-white/40" />
             </div>
+            <h3 className="font-heading font-black text-base text-white uppercase tracking-tight mb-3">
+              Gym Address
+            </h3>
+            <p className="text-sm text-white/40 leading-relaxed whitespace-pre-line mb-6 flex-1">
+              {GYM_DATA.contact.address}
+            </p>
             <a
               href={GYM_DATA.contact.googleMapsUrl}
               target="_blank"
               rel="noreferrer"
-              className="w-full py-3.5 bg-zinc-800 hover:bg-red-600 text-white font-heading font-extrabold text-xs tracking-widest uppercase rounded-full border border-zinc-700 hover:border-red-600 transition-all flex items-center justify-center gap-2"
+              className="inline-flex items-center gap-2 text-xs font-heading font-bold tracking-widest text-white/40 hover:text-white uppercase transition-colors group-hover:text-white/70"
             >
-              <Navigation className="w-4 h-4" /> GET DIRECTIONS
+              <Navigation className="w-3.5 h-3.5" />
+              Get Directions
             </a>
           </div>
 
-          {/* Card 2: Contact Phone Buttons */}
-          <div className="bg-zinc-900/60 border border-zinc-800 rounded-3xl p-8 text-center flex flex-col justify-between hover:border-red-600/40 transition-colors">
-            <div>
-              <div className="w-14 h-14 mx-auto rounded-2xl bg-red-950/80 border border-red-800/60 flex items-center justify-center mb-6">
-                <PhoneCall className="w-7 h-7 text-red-500" />
-              </div>
-              <h3 className="font-heading font-black text-xl text-white uppercase tracking-tight mb-4">
-                PHONE NUMBERS
-              </h3>
-              <p className="text-xs text-zinc-400 mb-6">Tap below to call reception directly</p>
+          {/* Phone */}
+          <div className="pricing-card group">
+            <div className="w-10 h-10 rounded-xl bg-white/[0.05] border border-white/[0.07] flex items-center justify-center mb-6">
+              <PhoneCall className="w-5 h-5 text-white/40" />
             </div>
-            <div className="flex flex-col gap-3">
+            <h3 className="font-heading font-black text-base text-white uppercase tracking-tight mb-3">
+              Phone Numbers
+            </h3>
+            <p className="text-xs text-white/30 mb-6">Tap to call reception directly</p>
+            <div className="flex flex-col gap-3 mt-auto">
               {GYM_DATA.contact.phones.map((ph) => (
                 <a
                   key={ph}
                   href={`tel:${ph}`}
-                  className="w-full py-3.5 bg-red-600 hover:bg-red-700 active:scale-[0.98] text-white font-heading font-extrabold text-xs tracking-widest uppercase rounded-full shadow-lg shadow-red-600/30 transition-all flex items-center justify-center gap-2"
+                  className="flex items-center gap-2 text-sm font-heading font-bold text-white/60 hover:text-white transition-colors"
                 >
-                  <Phone className="w-4 h-4" /> CALL {ph}
+                  <Phone className="w-4 h-4 text-white/25" />
+                  +91 {ph}
                 </a>
               ))}
             </div>
           </div>
 
-          {/* Card 3: Gym Timings */}
-          <div className="bg-zinc-900/60 border border-zinc-800 rounded-3xl p-8 text-center flex flex-col justify-between hover:border-red-600/40 transition-colors">
-            <div>
-              <div className="w-14 h-14 mx-auto rounded-2xl bg-red-950/80 border border-red-800/60 flex items-center justify-center mb-6">
-                <Clock className="w-7 h-7 text-red-500" />
+          {/* Timings */}
+          <div className="pricing-card group">
+            <div className="w-10 h-10 rounded-xl bg-white/[0.05] border border-white/[0.07] flex items-center justify-center mb-6">
+              <Clock className="w-5 h-5 text-white/40" />
+            </div>
+            <h3 className="font-heading font-black text-base text-white uppercase tracking-tight mb-3">
+              Gym Timings
+            </h3>
+            <div className="flex-1">
+              <div className="text-[10px] font-bold text-white/25 tracking-[0.15em] uppercase mb-1">
+                {GYM_DATA.contact.timings.days}
               </div>
-              <h3 className="font-heading font-black text-xl text-white uppercase tracking-tight mb-4">
-                GYM TIMINGS
-              </h3>
-              <div className="bg-zinc-950/80 p-5 rounded-2xl border border-zinc-800/80 mb-6">
-                <div className="text-xs font-bold text-red-500 tracking-wider uppercase mb-1">
-                  {GYM_DATA.contact.timings.days}
-                </div>
-                <div className="font-heading font-black text-xl text-white">
-                  {GYM_DATA.contact.timings.hours}
-                </div>
+              <div className="font-display text-3xl text-white leading-none mb-6">
+                {GYM_DATA.contact.timings.hours}
               </div>
             </div>
-            <div className="py-3 px-4 bg-emerald-950/40 border border-emerald-800/40 rounded-full text-emerald-400 text-xs font-bold uppercase tracking-wider">
-              ✓ Open 7 Days a Week
+            <div className="inline-flex items-center gap-2 text-xs font-bold text-white/40 border border-white/[0.08] rounded-full px-3 py-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+              Open 7 Days a Week
             </div>
           </div>
         </div>
 
-        {/* Embedded Interactive Google Map */}
-        <div className="relative w-full h-80 sm:h-96 rounded-3xl overflow-hidden border border-zinc-800 shadow-2xl">
+        {/* Embedded Google Map */}
+        <div className="relative w-full h-72 sm:h-96 rounded-2xl overflow-hidden border border-white/[0.07] shadow-2xl">
           <iframe
             title="Fitness Heaven Gym Location Map"
             src={embedUrl}
-            className="w-full h-full border-0 filter grayscale contrast-125 brightness-90 hover:grayscale-0 transition-all duration-500"
+            className="w-full h-full border-0 filter grayscale contrast-125 brightness-75 hover:grayscale-0 hover:brightness-90 transition-all duration-500"
             allowFullScreen=""
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
           />
         </div>
+
       </div>
     </section>
   );

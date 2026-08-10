@@ -1,10 +1,19 @@
 import React, { useRef } from 'react';
 import { useGSAP } from '@gsap/react';
-import { ArrowDown, CreditCard, ChevronRight } from 'lucide-react';
+import { ArrowDownRight, ChevronRight } from 'lucide-react';
 import { GYM_DATA } from '../../data/gymData';
+import { GYM_IMAGES } from '../../data/gymImages';
 import { animateHero } from '../../animations/gsap/heroAnimations';
 import { initHeroParallax } from '../../animations/gsap/parallax';
 
+// If GYM_DATA doesn't have a nav array yet, add one like this to your data file:
+// nav: [
+//   { label: 'Home', href: '#hero' },
+//   { label: 'About', href: '#about' },
+//   { label: 'Features', href: '#features' },
+//   { label: 'Price', href: '#price' },
+//   { label: 'Contact', href: '#contact' },
+// ]
 export default function Hero() {
   const containerRef = useRef(null);
   const bgRef = useRef(null);
@@ -12,22 +21,12 @@ export default function Hero() {
   const headingLinesRef = useRef([]);
   const descRef = useRef(null);
   const buttonsRef = useRef(null);
-  const statsRef = useRef([]);
-  const scrollIndicatorRef = useRef(null);
+  const circleRef = useRef(null);
 
   headingLinesRef.current = [];
-  statsRef.current = [];
 
   const addToHeadingLines = (el) => {
-    if (el && !headingLinesRef.current.includes(el)) {
-      headingLinesRef.current.push(el);
-    }
-  };
-
-  const addToStats = (el) => {
-    if (el && !statsRef.current.includes(el)) {
-      statsRef.current.push(el);
-    }
+    if (el && !headingLinesRef.current.includes(el)) headingLinesRef.current.push(el);
   };
 
   useGSAP(() => {
@@ -37,10 +36,8 @@ export default function Hero() {
       headingLinesRef,
       descRef,
       buttonsRef,
-      statsRef,
-      scrollIndicatorRef
+      circleRef,
     });
-
     const parallaxCtx = initHeroParallax(containerRef, bgRef, descRef);
 
     return () => {
@@ -53,109 +50,81 @@ export default function Hero() {
     <section
       ref={containerRef}
       id="hero"
-      className="relative min-h-screen flex flex-col justify-between overflow-hidden bg-[#070709] pt-28 pb-12"
+      className="relative min-h-screen lg:h-screen lg:max-h-screen bg-[#0a0a0c] overflow-hidden text-white flex flex-col pt-20 lg:pt-24"
     >
-      {/* Background Image in Original Colors */}
-      <div
-        ref={bgRef}
-        className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: `url('/images/hero.png')` }}
-      />
+      {/* ── FULL SCREEN BACKGROUND IMAGE ── */}
+      <div className="absolute inset-0 pointer-events-none z-0">
+        <div
+          ref={bgRef}
+          className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat filter brightness-[0.82] contrast-[1.1] transition-all duration-700"
+          style={{ backgroundImage: `url(${GYM_IMAGES.hero.gym})` }}
+          aria-hidden="true"
+        />
+        <div ref={overlayRef} className="absolute inset-0 z-10 pointer-events-none">
+          {/* Fullscreen gradient overlay: heavier on left for text contrast, subtle on right for full image view */}
+          <div className="absolute inset-0 bg-gradient-to-r from-[#070709] via-[#070709]/75 via-45% to-black/30" />
+          {/* Vertical top & bottom subtle fades */}
+          <div className="absolute top-0 left-0 right-0 h-40 bg-gradient-to-b from-[#070709]/95 via-[#070709]/60 to-transparent" />
+          <div className="absolute bottom-0 left-0 right-0 h-52 bg-gradient-to-t from-[#070709] via-[#070709]/80 to-transparent" />
+        </div>
+      </div>
 
-      {/* Dark Gradient Overlay */}
-      <div
-        ref={overlayRef}
-        className="absolute inset-0 z-10 bg-gradient-to-t from-[#070709] via-[#070709]/75 to-[#070709]/50"
-      />
-
-      {/* Hero Content */}
-      <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full my-auto py-12">
-        <div className="max-w-4xl">
-          {/* Eyebrow Badge with Official Logo Emblem (True Colors) */}
-          <div className="inline-flex items-center gap-3 px-4 py-1.5 rounded-full bg-red-950/70 border border-red-800/40 text-red-400 text-xs font-heading font-extrabold tracking-widest uppercase mb-6 backdrop-blur-md shadow-lg shadow-red-950/40">
-            <div className="p-0.5 bg-white rounded-md flex items-center justify-center">
-              <img src="/images/logo.png" alt="Fitness Heaven Logo Emblem" className="h-5 w-auto object-contain rounded" />
-            </div>
-            <span>Fitness Heaven Gym &amp; Sports</span>
-          </div>
-
-          {/* Main Line-by-Line Editorial Heading */}
-          <h1 className="font-heading font-black text-5xl sm:text-7xl lg:text-8xl xl:text-[9rem] tracking-tight leading-[0.88] uppercase mb-8 text-white">
+      {/* ── MAIN CONTENT ── */}
+      <div className="relative z-20 max-w-[1400px] w-full mx-auto px-6 sm:px-10 lg:px-12 flex-1 flex flex-col justify-center">
+        <div className="max-w-xl lg:max-w-2xl">
+          {/* Headline */}
+          <h1 className="font-display text-[clamp(3rem,7vw,6.2rem)] font-black uppercase leading-[0.86] tracking-[-0.01em] text-white select-none">
             {GYM_DATA.hero.titleLines.map((line, idx) => (
-              <span key={idx} className="block overflow-hidden">
+              <span key={idx} className="block overflow-hidden py-0.5">
                 <span
                   ref={addToHeadingLines}
-                  className={`inline-block ${
-                    idx === 2 ? 'text-transparent bg-clip-text bg-gradient-to-r from-white via-red-400 to-red-600' : ''
-                  }`}
+                  className="inline-block"
                 >
                   {line}
                 </span>
               </span>
             ))}
           </h1>
-
-          {/* Supporting Text */}
-          <p
-            ref={descRef}
-            className="text-lg sm:text-xl text-zinc-300 font-normal max-w-2xl leading-relaxed mb-10 text-balance"
-          >
-            {GYM_DATA.hero.description}
-          </p>
-
-          {/* CTA Buttons */}
-          <div ref={buttonsRef} className="flex flex-wrap items-center gap-4 sm:gap-6 mb-16">
-            <a
-              href="#membership"
-              className="btn-base btn-primary text-sm tracking-widest uppercase shadow-xl shadow-red-600/30"
-            >
-              VIEW MEMBERSHIPS <ChevronRight className="w-5 h-5" />
-            </a>
-            <a
-              href="#payment"
-              className="btn-base btn-secondary text-sm tracking-widest uppercase"
-            >
-              PAY VIA UPI <CreditCard className="w-5 h-5 text-red-500" />
-            </a>
-          </div>
         </div>
 
-        {/* Hero Stats Cards */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 border-t border-zinc-800/80 pt-8">
-          {GYM_DATA.hero.stats.map((stat, i) => (
-            <div
-              key={i}
-              ref={addToStats}
-              className="bg-zinc-950/60 border border-zinc-800/60 rounded-2xl p-4 sm:p-5 backdrop-blur-md hover:border-red-600/40 transition-colors"
-            >
-              <div className="font-heading font-black text-2xl sm:text-3xl lg:text-4xl text-white tracking-tight leading-none mb-1">
-                {stat.num}
-              </div>
-              <div className="text-xs font-bold text-red-500 tracking-wider uppercase mb-0.5">
-                {stat.label}
-              </div>
-              <div className="text-[11px] text-zinc-400 font-medium">
-                {stat.desc}
-              </div>
-            </div>
-          ))}
+        {/* Floating scroll circle + description, positioned like the reference */}
+        <div className="mt-10 lg:mt-12 flex items-start gap-6 max-w-md lg:ml-[26%]">
+          <a
+            ref={circleRef}
+            href="#about"
+            aria-label="Scroll to About section"
+            className="group shrink-0 w-16 h-16 rounded-full border border-white/25 flex items-center justify-center hover:border-white/60 hover:bg-white/5 transition-all duration-300"
+          >
+            <ArrowDownRight className="w-6 h-6 text-white/80 group-hover:translate-x-0.5 group-hover:translate-y-0.5 transition-transform" />
+          </a>
+          <p ref={descRef} className="text-sm text-white/55 leading-relaxed pt-2">
+            {GYM_DATA.hero.description}
+          </p>
         </div>
       </div>
 
-      {/* Scroll Down Indicator */}
+      {/* ── BOTTOM CTA ROW ── */}
       <div
-        ref={scrollIndicatorRef}
-        className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full flex justify-center pt-4"
+        ref={buttonsRef}
+        className="relative z-20 max-w-[1400px] w-full mx-auto px-6 sm:px-10 lg:px-12 pb-10 lg:pb-14 flex items-center gap-4"
       >
         <a
-          href="#about"
-          className="flex flex-col items-center gap-2 text-zinc-400 hover:text-red-500 transition-colors group"
-          aria-label="Scroll to About Section"
+          href="#membership"
+          className="group inline-flex items-center gap-1 bg-white text-black text-[13px] font-semibold tracking-wide pl-6 pr-4 py-3.5 rounded-full hover:bg-white/90 transition-all duration-300"
         >
-          <span className="text-[10px] font-bold tracking-[0.2em] uppercase">SCROLL DOWN</span>
-          <div className="w-8 h-8 rounded-full border border-zinc-800 flex items-center justify-center group-hover:border-red-500 animate-bounce">
-            <ArrowDown className="w-4 h-4 text-red-500" />
-          </div>
+          Join Now
+          <span className="flex items-center -space-x-2 ml-1 opacity-70">
+            <ChevronRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-0.5" />
+            <ChevronRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-0.5 delay-75" />
+            <ChevronRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-0.5 delay-150" />
+          </span>
+        </a>
+
+        <a
+          href="#trial"
+          className="inline-flex items-center bg-transparent border border-white/25 text-white text-[13px] font-semibold tracking-wide px-6 py-3.5 rounded-full hover:border-white/60 hover:bg-white/5 transition-all duration-300"
+        >
+          Free Trial
         </a>
       </div>
     </section>
