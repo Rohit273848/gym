@@ -62,6 +62,7 @@ export default function Hero() {
       {/* ── FULL SCREEN BACKGROUND IMAGE ── */}
       <div className="absolute inset-0 pointer-events-none z-0">
         <div
+
           ref={bgRef}
           className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat filter brightness-[0.8] contrast-[1.1] transition-all duration-700"
           style={{ backgroundImage: `url(${GYM_IMAGES.hero.gym})` }}
