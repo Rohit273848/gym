@@ -1,33 +1,35 @@
 export const GYM_IMAGES = {
   hero: {
-    gym: "https://ik.imagekit.io/hncen2qqc/New%20folder/hero-gym-B8M_t_Bd.jpg",
+    gym: "https://ik.imagekit.io/hncen2qqc/GYM/Empty%20Gym%20Interior.png",
+    yellowAccents: "https://ik.imagekit.io/hncen2qqc/GYM/Interior%20Shot%20of%20Empty%20Gym%20with%20Yellow%20Accents.png",
   },
 
   classes: {
-    cardio: "https://ik.imagekit.io/hncen2qqc/New%20folder/class-cardio-BUwRWbek.jpg",
-    crossfit: "https://ik.imagekit.io/hncen2qqc/New%20folder/class-crossfit-DC6slbgD.jpg",
-    functional: "https://ik.imagekit.io/hncen2qqc/New%20folder/class-functional-Dff_hgHZ.jpg",
-    hiit: "https://ik.imagekit.io/hncen2qqc/New%20folder/class-hiit-CeUiQb0A.jpg",
-    pilates: "https://ik.imagekit.io/hncen2qqc/New%20folder/class-pilates-BXjMmE1u.jpg",
-    strength: "https://ik.imagekit.io/hncen2qqc/New%20folder/class-strength-qgEPAHVF.jpg",
-    yoga: "https://ik.imagekit.io/hncen2qqc/New%20folder/class-yoga-BIbzuh1p.jpg",
-    zumba: "https://ik.imagekit.io/hncen2qqc/New%20folder/class-zumba-Dl2moNda.jpg",
+    cardio: "https://ik.imagekit.io/hncen2qqc/GYM/Exercise%20machine%20(2).png",
+    strength: "https://ik.imagekit.io/hncen2qqc/GYM/Gym%20Interior%20with%20Dumbbell%20Rack.png",
+    functional: "https://ik.imagekit.io/hncen2qqc/GYM/gym%20equipments.png",
+    hiit: "https://ik.imagekit.io/hncen2qqc/GYM/gym_flex_good_vibes.jpg.png",
+    crossfit: "https://ik.imagekit.io/hncen2qqc/GYM/Weight%20Room%20Floor%20and%20Equipment.png",
+    zumba: "https://ik.imagekit.io/hncen2qqc/GYM/Empty_Gym_Mirror_Reflection.jpg.png",
+    pilates: "https://ik.imagekit.io/hncen2qqc/GYM/interior-view-gym-equipment.jpg.png",
+    yoga: "https://ik.imagekit.io/hncen2qqc/GYM/Interior%20Shot%20of%20Empty%20Gym%20with%20Yellow%20Accents.png",
   },
 
   gallery: {
-    cardioZone: "https://ik.imagekit.io/hncen2qqc/New%20folder/gallery-cardio-zone-CYs1THvt.jpg",
-    equipment: "https://ik.imagekit.io/hncen2qqc/New%20folder/gallery-equipment-Cr9Wck8t.jpg",
-    interior: "https://ik.imagekit.io/hncen2qqc/New%20folder/gallery-interior-KRbh883E.jpg",
-    personalTraining: "https://ik.imagekit.io/hncen2qqc/New%20folder/gallery-pt-BfhEwz7b.jpg",
-    strengthZone: "https://ik.imagekit.io/hncen2qqc/New%20folder/gallery-strength-zone-BpJTvJk4.jpg",
+    strengthZone: "https://ik.imagekit.io/hncen2qqc/GYM/Weight%20Room%20Floor%20and%20Equipment.png",
+    dumbbellRack: "https://ik.imagekit.io/hncen2qqc/GYM/Gym%20Interior%20with%20Dumbbell%20Rack.png",
+    cardioZone: "https://ik.imagekit.io/hncen2qqc/GYM/Exercise%20machine%20(2).png",
+    interior: "https://ik.imagekit.io/hncen2qqc/GYM/interior-view-gym-equipment.jpg.png",
+    yellowAccents: "https://ik.imagekit.io/hncen2qqc/GYM/Interior%20Shot%20of%20Empty%20Gym%20with%20Yellow%20Accents.png",
+    emptyInterior: "https://ik.imagekit.io/hncen2qqc/GYM/Empty%20Gym%20Interior.png",
+    mirrorReflection: "https://ik.imagekit.io/hncen2qqc/GYM/Empty_Gym_Mirror_Reflection.jpg.png",
+    personalTraining: "https://ik.imagekit.io/hncen2qqc/GYM/Gym%20Mirror%20Selfie%20with%20Barbells.png",
+    equipment: "https://ik.imagekit.io/hncen2qqc/GYM/gym%20equipments.png",
+    flexVibes: "https://ik.imagekit.io/hncen2qqc/GYM/gym_flex_good_vibes.jpg.png",
   },
 
   trainers: {
-    trainer1: "https://ik.imagekit.io/hncen2qqc/New%20folder/trainer-1-BmcHDS2H.jpg",
-    trainer2: "https://ik.imagekit.io/hncen2qqc/New%20folder/trainer-2-DIAzd-oR.jpg",
-    trainer3: "https://ik.imagekit.io/hncen2qqc/New%20folder/trainer-3-DJVR0wvt.jpg",
-    trainer4: "https://ik.imagekit.io/hncen2qqc/New%20folder/trainer-4-BQMhhMkY.jpg",
-    trainer5: "https://ik.imagekit.io/hncen2qqc/New%20folder/trainer-5-RwZ-1tih.jpg",
-    trainer6: "https://ik.imagekit.io/hncen2qqc/New%20folder/trainer-6-BCgvI5kc.jpg",
+    coachMukesh: "https://ik.imagekit.io/hncen2qqc/GYM/coach%20mukesh%20Admane%20.png",
   },
 };
+

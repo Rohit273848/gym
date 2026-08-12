@@ -46,7 +46,7 @@ export default function FloatingMobileCta() {
             href="#payment"
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.96 }}
-            className="w-full py-3.5 bg-red-600 active:scale-[0.98] text-white font-heading font-black text-xs tracking-widest uppercase rounded-full shadow-2xl shadow-red-600/60 border border-red-500/50 flex items-center justify-center gap-2"
+            className="w-full py-3.5 bg-[#F2D500] hover:bg-[#D9BE00] active:scale-[0.98] text-[#0B0B09] font-heading font-extrabold text-xs tracking-widest uppercase rounded-full shadow-2xl shadow-[#F2D500]/50 border border-[#F2D500] flex items-center justify-center gap-2"
           >
             JOIN NOW <Zap className="w-4 h-4 fill-current" />
           </motion.a>

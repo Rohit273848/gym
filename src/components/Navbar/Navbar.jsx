@@ -59,15 +59,12 @@ export default function Navbar({ onSelectPlan }) {
   }, [mobileMenuOpen]);
 
   const navItems = [
-    { label: 'Home',       href: '#hero' },
-    { label: 'About',      href: '#about' },
-    { label: 'Classes',    href: '#classes' },
-    { label: 'Facilities', href: '#facilities' },
-    { label: 'Trainers',   href: '#trainers' },
-    { label: 'Gallery',    href: '#gallery' },
-    { label: 'Pricing',    href: '#membership' },
-    { label: 'Training',   href: '#training' },
-    { label: 'Contact',    href: '#contact' },
+    { label: 'Home',         href: '#hero' },
+    { label: 'About',        href: '#about' },
+    { label: 'Services',     href: '#services' },
+    { label: 'Membership',   href: '#membership' },
+    { label: 'Testimonials', href: '#testimonials' },
+    { label: 'Contact',      href: '#contact' },
   ];
 
   return (
@@ -77,7 +74,7 @@ export default function Navbar({ onSelectPlan }) {
       transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
       className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ${
         mobileMenuOpen || isScrolled
-          ? 'py-4 bg-[#070709]/95 backdrop-blur-xl border-b border-white/10 shadow-xl shadow-black/60'
+          ? 'py-4 bg-[#0B0B09]/95 backdrop-blur-xl border-b border-[#292923] shadow-xl shadow-black/60'
           : 'pt-7 pb-4 bg-transparent'
       }`}
     >
@@ -87,14 +84,13 @@ export default function Navbar({ onSelectPlan }) {
           href="#hero"
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
-          className="flex items-center gap-2 select-none"
+          className="flex items-center select-none"
         >
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" className="shrink-0">
-            <path d="M13 2 3 14h7l-1 8 11-14h-8l1-6z" fill="white" />
-          </svg>
-          <span className="font-display font-black text-lg tracking-tight uppercase text-white">
-            {GYM_DATA.brand.name}
-          </span>
+          <img
+            src="/images/logo.png"
+            alt="Reshape Fitness Club"
+            className="h-9 sm:h-10 lg:h-11 w-auto object-contain"
+          />
         </motion.a>
 
         {/* Desktop Nav Links */}
@@ -109,7 +105,7 @@ export default function Navbar({ onSelectPlan }) {
               <a
                 href={item.href}
                 className={`text-[13px] font-medium tracking-wide transition-colors ${
-                  i === 0 || hoveredNav === item.label ? 'text-white' : 'text-white/50'
+                  i === 0 || hoveredNav === item.label ? 'text-[#F2D500]' : 'text-[#F5F3E8]/60 hover:text-[#F5F3E8]'
                 }`}
               >
                 {item.label}
@@ -118,7 +114,7 @@ export default function Navbar({ onSelectPlan }) {
               {hoveredNav === item.label && (
                 <motion.div
                   layoutId="nav-underline"
-                  className="absolute bottom-0 left-0 right-0 h-[2px] bg-red-500 rounded-full"
+                  className="absolute bottom-0 left-0 right-0 h-[2px] bg-[#F2D500] rounded-full"
                   transition={{ duration: 0.25, ease: 'easeOut' }}
                 />
               )}
@@ -133,7 +129,7 @@ export default function Navbar({ onSelectPlan }) {
             whileHover={{ scale: 1.04 }}
             whileTap={{ scale: 0.96 }}
             transition={{ duration: 0.2 }}
-            className="inline-flex items-center bg-white text-black text-[12px] font-semibold tracking-wide px-5 py-2.5 rounded-full hover:bg-white/90 transition-all duration-300 shadow-sm shadow-white/10"
+            className="inline-flex items-center bg-[#F2D500] hover:bg-[#D9BE00] text-[#0B0B09] text-[12px] font-heading font-extrabold tracking-wide px-5 py-2.5 rounded-full transition-all duration-300 shadow-md shadow-[#F2D500]/20"
           >
             Contact Us
           </motion.a>
@@ -145,8 +141,8 @@ export default function Navbar({ onSelectPlan }) {
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           className={`md:hidden p-2.5 rounded-xl border transition-all focus-visible:outline-none ${
             mobileMenuOpen
-              ? 'bg-white/10 border-white/20 text-white'
-              : 'bg-white/5 border-white/10 text-white/80 hover:text-white'
+              ? 'bg-[#1A1A17] border-[#F2D500] text-[#F2D500]'
+              : 'bg-[#1A1A17] border-[#292923] text-[#F5F3E8]/80 hover:text-[#F2D500]'
           }`}
           aria-label="Toggle Navigation Menu"
           aria-expanded={mobileMenuOpen}
@@ -165,24 +161,23 @@ export default function Navbar({ onSelectPlan }) {
             initial="closed"
             animate="open"
             exit="closed"
-            className="fixed inset-0 z-50 bg-[#070709] h-screen h-[100dvh] w-screen flex flex-col md:hidden overflow-hidden"
+            className="fixed inset-0 z-50 bg-[#0B0B09] h-screen h-[100dvh] w-screen flex flex-col md:hidden overflow-hidden"
           >
-            {/* Ambient Red Glow */}
-            <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-96 h-96 bg-red-600/10 rounded-full blur-[140px] pointer-events-none" />
+            {/* Ambient Yellow Glow */}
+            <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-96 h-96 bg-[#F2D500]/10 rounded-full blur-[140px] pointer-events-none" />
 
             {/* Mobile Top Bar inside Overlay */}
-            <div className="relative z-10 px-6 py-4 flex items-center justify-between border-b border-white/10 shrink-0 bg-[#070709]">
-              <a href="#hero" onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-2 select-none">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" className="shrink-0">
-                  <path d="M13 2 3 14h7l-1 8 11-14h-8l1-6z" fill="white" />
-                </svg>
-                <span className="font-display font-black text-lg tracking-tight uppercase text-white">
-                  {GYM_DATA.brand.name}
-                </span>
+            <div className="relative z-10 px-6 py-4 flex items-center justify-between border-b border-[#292923] shrink-0 bg-[#0B0B09]">
+              <a href="#hero" onClick={() => setMobileMenuOpen(false)} className="flex items-center select-none">
+                <img
+                  src="/images/logo.png"
+                  alt="Reshape Fitness Club"
+                  className="h-8 sm:h-9 w-auto object-contain"
+                />
               </a>
               <button
                 onClick={() => setMobileMenuOpen(false)}
-                className="p-2.5 rounded-xl bg-white/10 border border-white/20 text-white focus-visible:outline-none"
+                className="p-2.5 rounded-xl bg-[#1A1A17] border border-[#292923] text-[#F5F3E8] focus-visible:outline-none"
                 aria-label="Close Navigation Menu"
               >
                 <X className="w-5 h-5" />
@@ -192,7 +187,7 @@ export default function Navbar({ onSelectPlan }) {
             {/* Scrollable Content Container */}
             <div className="relative z-10 flex-1 overflow-y-auto p-6 sm:p-8 flex flex-col justify-between">
               <motion.div variants={menuContainerVariants} className="flex flex-col gap-1 my-2">
-                <div className="text-[10px] font-bold tracking-[0.25em] text-white/30 uppercase mb-3 px-3">
+                <div className="text-[10px] font-bold tracking-[0.25em] text-[#A7A79D] uppercase mb-3 px-3">
                   Navigation
                 </div>
                 
@@ -202,26 +197,26 @@ export default function Navbar({ onSelectPlan }) {
                     variants={itemVariants}
                     href={item.href}
                     onClick={() => setMobileMenuOpen(false)}
-                    className="group flex items-center justify-between text-base font-display uppercase tracking-wider text-white/70 hover:text-white px-3 py-3 rounded-xl border-b border-white/[0.05] hover:bg-white/[0.04] transition-all duration-200"
+                    className="group flex items-center justify-between text-base font-display uppercase tracking-wider text-[#F5F3E8]/80 hover:text-[#F2D500] px-3 py-3 rounded-xl border-b border-[#292923] hover:bg-[#1A1A17] transition-all duration-200"
                   >
                     <div className="flex items-center gap-3">
-                      <span className="font-mono text-xs font-bold text-white/25 group-hover:text-red-500 transition-colors">
+                      <span className="font-mono text-xs font-bold text-[#A7A79D] group-hover:text-[#F2D500] transition-colors">
                         0{idx + 1}
                       </span>
                       <span>{item.label}</span>
                     </div>
-                    <ChevronRight className="w-4 h-4 text-white/20 group-hover:text-red-500 group-hover:translate-x-1 transition-all" />
+                    <ChevronRight className="w-4 h-4 text-[#A7A79D] group-hover:text-[#F2D500] group-hover:translate-x-1 transition-all" />
                   </motion.a>
                 ))}
               </motion.div>
 
               {/* CTAs & Contact Strip */}
-              <div className="flex flex-col gap-5 pt-6 mt-6 border-t border-white/10 shrink-0">
+              <div className="flex flex-col gap-5 pt-6 mt-6 border-t border-[#292923] shrink-0">
                 <div className="flex flex-col sm:flex-row gap-3">
                   <a
                     href="#membership"
                     onClick={() => setMobileMenuOpen(false)}
-                    className="w-full py-3.5 bg-white text-black hover:bg-white/90 font-heading font-extrabold text-xs tracking-widest text-center rounded-full uppercase transition-all shadow-lg shadow-white/10 flex items-center justify-center gap-2"
+                    className="w-full py-3.5 bg-[#F2D500] text-[#0B0B09] hover:bg-[#D9BE00] font-heading font-extrabold text-xs tracking-widest text-center rounded-full uppercase transition-all shadow-lg shadow-[#F2D500]/20 flex items-center justify-center gap-2"
                   >
                     <span>Join Now</span>
                     <ArrowRight className="w-4 h-4" />
@@ -229,21 +224,21 @@ export default function Navbar({ onSelectPlan }) {
                   <a
                     href="#payment"
                     onClick={() => setMobileMenuOpen(false)}
-                    className="w-full py-3.5 bg-white/[0.04] border border-white/20 hover:border-white/40 text-white font-heading font-bold text-xs tracking-widest text-center rounded-full uppercase transition-colors"
+                    className="w-full py-3.5 bg-[#1A1A17] border border-[#292923] hover:border-[#F2D500] text-[#F5F3E8] hover:text-[#F2D500] font-heading font-bold text-xs tracking-widest text-center rounded-full uppercase transition-colors"
                   >
                     Pay via UPI
                   </a>
                 </div>
 
                 {/* Bottom Quick Contact Info */}
-                <div className="flex items-center justify-between pt-3 text-[11px] text-white/40 border-t border-white/[0.06]">
+                <div className="flex items-center justify-between pt-3 text-[11px] text-[#A7A79D] border-t border-[#292923]">
+                  <a href={`tel:${GYM_DATA.contact.phoneRaw}`} className="flex items-center gap-1.5 hover:text-[#F2D500] transition-colors">
+                    <Phone className="w-3.5 h-3.5 text-[#F2D500]" />
+                    <span>{GYM_DATA.contact.phone}</span>
+                  </a>
                   <div className="flex items-center gap-1.5">
-                    <Phone className="w-3.5 h-3.5 text-white/30" />
-                    <span>+91 {GYM_DATA.contact.phones[0]}</span>
-                  </div>
-                  <div className="flex items-center gap-1.5">
-                    <Clock className="w-3.5 h-3.5 text-white/30" />
-                    <span>6 AM – 10 PM</span>
+                    <Clock className="w-3.5 h-3.5 text-[#F2D500]" />
+                    <span>6 AM – 11 PM</span>
                   </div>
                 </div>
               </div>

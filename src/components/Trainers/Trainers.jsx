@@ -1,142 +1,112 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Instagram, Linkedin, Award, ShieldCheck } from 'lucide-react';
+import { UserCheck, ShieldCheck, Check, Sparkles, Award } from 'lucide-react';
+import { GYM_DATA } from '../../data/gymData';
 import { GYM_IMAGES } from '../../data/gymImages';
 
-const trainersList = [
-  {
-    id: 't1',
-    name: 'Vikram Singh',
-    role: 'Head Strength Coach',
-    specialty: 'Powerlifting & Jerai Equipment Specialist',
-    experience: '8+ Years Exp.',
-    image: GYM_IMAGES.trainers.trainer1,
-  },
-  {
-    id: 't2',
-    name: 'Ananya Sharma',
-    role: 'Functional & HIIT Specialist',
-    specialty: 'Fat Loss & Endurance Conditioning',
-    experience: '6+ Years Exp.',
-    image: GYM_IMAGES.trainers.trainer2,
-  },
-  {
-    id: 't3',
-    name: 'Rahul Deshmukh',
-    role: 'Senior Fitness Director',
-    specialty: 'Body Recomposition & Nutrition',
-    experience: '10+ Years Exp.',
-    image: GYM_IMAGES.trainers.trainer3,
-  },
-  {
-    id: 't4',
-    name: 'Priya Kulkarni',
-    role: 'Yoga & Pilates Master',
-    specialty: 'Postural Alignment & Core Stability',
-    experience: '7+ Years Exp.',
-    image: GYM_IMAGES.trainers.trainer4,
-  },
-  {
-    id: 't5',
-    name: 'Arjun Verma',
-    role: 'MMA & Boxing Coach',
-    specialty: 'Combat Fitness & Agility Drills',
-    experience: '5+ Years Exp.',
-    image: GYM_IMAGES.trainers.trainer5,
-  },
-  {
-    id: 't6',
-    name: 'Neha Kapoor',
-    role: 'Personal Transformation Coach',
-    specialty: 'Weight Loss & Group Energetics',
-    experience: '6+ Years Exp.',
-    image: GYM_IMAGES.trainers.trainer6,
-  },
-];
-
 export default function Trainers() {
-  return (
-    <section id="trainers" className="py-28 sm:py-36 bg-[#0a0a0d] relative overflow-hidden">
-      {/* Background radial accent */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-red-600/5 rounded-full blur-[180px] pointer-events-none" />
+  const coach = GYM_DATA.featuredCoach;
 
-      <div className="max-w-[1400px] mx-auto px-6 sm:px-10 lg:px-12 relative z-10">
+  return (
+    <section id="trainers" className="py-28 sm:py-36 bg-[#0B0B09] relative overflow-hidden">
+      {/* Background radial accent */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#F2D500]/5 rounded-full blur-[180px] pointer-events-none" />
+
+      <div className="max-w-[1280px] mx-auto px-5 sm:px-8 lg:px-12 relative z-10">
         
         {/* Header */}
-        <div className="text-center max-w-3xl mx-auto mb-20">
-          <div className="section-label mb-6 mx-auto w-fit">Expert Guidance</div>
-          <h2 className="gsap-reveal-title font-display text-[clamp(2.4rem,5.5vw,5.5rem)] uppercase leading-[0.88] text-white mb-6">
-            MEET OUR ELITE <br />
-            <span style={{ WebkitTextStroke: '1.5px rgba(255,255,255,0.25)', color: 'transparent' }}>
-              TRAINING TEAM
+        <div className="text-center max-w-3xl mx-auto mb-16 sm:mb-20">
+          <div className="section-label mb-6 mx-auto w-fit">Featured Coach</div>
+          <h2 className="gsap-reveal-title font-display text-[clamp(2.4rem,5.5vw,5.5rem)] uppercase leading-[0.88] text-[#F5F3E8] mb-6">
+            EXPERT COACHING &amp; <br />
+            <span style={{ WebkitTextStroke: '1.5px rgba(245,243,232,0.25)', color: 'transparent' }}>
+              PERSONALIZED GUIDANCE
             </span>
           </h2>
-          <p className="text-sm text-white/40 leading-relaxed max-w-xl mx-auto">
-            Certified fitness professionals dedicated to helping you achieve maximum results safely, efficiently, and consistently.
+          <p className="text-sm text-[#A7A79D] leading-relaxed max-w-xl mx-auto">
+            At Reshape Fitness Club, our mentors provide dedicated support in effective workout techniques, custom diet planning, and goal-oriented fitness progression.
           </p>
         </div>
 
-        {/* Trainers Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {trainersList.map((trainer, idx) => (
-            <motion.div
-              key={trainer.id}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: idx * 0.08 }}
-              whileHover={{ y: -8 }}
-              className="group relative bg-[#0f0f14] rounded-2xl overflow-hidden border border-white/[0.08] hover:border-white/25 transition-all duration-300 shadow-xl"
-            >
-              {/* Image Container */}
-              <div className="relative h-96 w-full overflow-hidden bg-neutral-900">
-                <img
-                  src={trainer.image}
-                  alt={trainer.name}
-                  loading="lazy"
-                  className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105 filter brightness-95"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0f0f14] via-[#0f0f14]/20 to-transparent" />
+        {/* Featured Coach Highlight Card */}
+        <div className="bg-[#1A1A17] border border-[#292923] rounded-3xl overflow-hidden shadow-2xl p-6 sm:p-10 lg:p-12 grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+          
+          {/* Left / Top: Coach Photo Card */}
+          <div className="lg:col-span-5 flex flex-col items-center justify-center">
+            <div className="relative w-full max-w-sm aspect-[4/5] rounded-2xl overflow-hidden border border-[#292923] shadow-2xl group bg-[#0B0B09]">
+              <img
+                src={GYM_IMAGES.trainers.coachMukesh}
+                alt="Coach Mukesh Admane - Head Coach & Fitness Mentor at Reshape Fitness Club"
+                loading="lazy"
+                className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0B0B09] via-transparent to-transparent opacity-80 pointer-events-none" />
 
-                {/* Experience Badge */}
-                <div className="absolute top-4 left-4 flex items-center gap-1.5 px-3 py-1 bg-black/60 backdrop-blur-md rounded-full text-[10px] font-bold text-white/90 border border-white/10 uppercase tracking-widest">
-                  <Award className="w-3 h-3 text-red-500" />
-                  {trainer.experience}
-                </div>
-
-                {/* Quick Social Buttons on Hover */}
-                <div className="absolute top-4 right-4 flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <button className="w-8 h-8 rounded-full bg-black/70 backdrop-blur-md flex items-center justify-center text-white/80 hover:text-white border border-white/10 hover:border-white/30 transition-all">
-                    <Instagram className="w-3.5 h-3.5" />
-                  </button>
-                  <button className="w-8 h-8 rounded-full bg-black/70 backdrop-blur-md flex items-center justify-center text-white/80 hover:text-white border border-white/10 hover:border-white/30 transition-all">
-                    <Linkedin className="w-3.5 h-3.5" />
-                  </button>
+              <div className="absolute bottom-4 left-4 right-4 glass-panel rounded-xl p-3.5 border border-[#292923]">
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 rounded-lg bg-[#F2D500]/10 border border-[#F2D500]/30 flex items-center justify-center shrink-0 text-[#F2D500]">
+                    <UserCheck className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <div className="text-xs font-heading font-black text-[#F5F3E8] uppercase tracking-wide">
+                      {coach.name}
+                    </div>
+                    <div className="text-[10px] text-[#F2D500] font-bold uppercase tracking-wider mt-0.5">
+                      {coach.role}
+                    </div>
+                  </div>
                 </div>
               </div>
+            </div>
+          </div>
 
-              {/* Info Container */}
-              <div className="p-6">
-                <div className="text-[10px] font-bold tracking-[0.2em] text-red-500 uppercase mb-1">
-                  {trainer.role}
-                </div>
-                <h3 className="font-display text-2xl text-white uppercase tracking-tight mb-2 group-hover:text-red-400 transition-colors">
-                  {trainer.name}
-                </h3>
-                <div className="flex items-center gap-2 text-xs text-white/40 mb-5">
-                  <ShieldCheck className="w-3.5 h-3.5 text-white/30 shrink-0" />
-                  <span>{trainer.specialty}</span>
-                </div>
+          {/* Right / Bottom: Coach Information & Selling Points */}
+          <div className="lg:col-span-7 space-y-6">
+            <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#F2D500]/10 border border-[#F2D500]/30 rounded-full text-[10px] font-bold text-[#F2D500] uppercase tracking-widest">
+              <Sparkles className="w-3.5 h-3.5" /> Featured Mentor
+            </div>
 
-                <a
-                  href="#training"
-                  className="w-full py-2.5 bg-white/[0.04] border border-white/10 group-hover:border-white/30 hover:bg-white text-white/70 group-hover:text-white hover:!text-black font-heading font-extrabold text-[11px] tracking-widest uppercase rounded-xl transition-all duration-300 flex items-center justify-center"
-                >
-                  Book 1-on-1 Session
-                </a>
-              </div>
-            </motion.div>
-          ))}
+            <h3 className="font-display text-4xl sm:text-5xl uppercase text-[#F5F3E8] leading-none">
+              {coach.name}
+            </h3>
+
+            <p className="font-display text-lg sm:text-xl text-[#F2D500] uppercase tracking-wide font-bold italic">
+              "{coach.tagline}"
+            </p>
+
+            <p className="text-sm text-[#A7A79D] leading-relaxed">
+              {coach.description}
+            </p>
+
+            {/* Core Competencies / Highlights */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+              {coach.highlights.map((item, idx) => (
+                <div key={idx} className="flex items-center gap-3 p-3 bg-[#0B0B09] border border-[#292923] rounded-xl">
+                  <div className="w-6 h-6 rounded-full bg-[#F2D500]/10 border border-[#F2D500]/30 flex items-center justify-center text-[#F2D500] shrink-0">
+                    <Check className="w-3.5 h-3.5" />
+                  </div>
+                  <span className="text-xs font-heading font-bold text-[#F5F3E8]/90">{item}</span>
+                </div>
+              ))}
+            </div>
+
+            <div className="pt-4 flex flex-col sm:flex-row gap-4">
+              <a
+                href="#membership"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-[#F2D500] hover:bg-[#D9BE00] text-[#0B0B09] font-heading font-extrabold text-xs uppercase tracking-widest rounded-full transition-all shadow-lg shadow-[#F2D500]/25"
+              >
+                Join &amp; Train with Guidance
+              </a>
+              <a
+                href="#contact"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-transparent border border-[#F5F3E8]/25 hover:border-[#F2D500] text-[#F5F3E8] hover:text-[#F2D500] hover:bg-[#F2D500]/5 font-heading font-bold text-xs uppercase tracking-widest rounded-full transition-colors"
+              >
+                Inquire at Reception
+              </a>
+            </div>
+
+          </div>
+
         </div>
 
       </div>

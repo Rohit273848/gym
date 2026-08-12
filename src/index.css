@@ -5,10 +5,14 @@
     --font-display: 'Barlow Condensed', 'Outfit', -apple-system, sans-serif;
     --font-heading: 'Outfit', -apple-system, sans-serif;
     --font-sans: 'Plus Jakarta Sans', -apple-system, sans-serif;
-    --color-bg: #070709;
-    --color-surface: #0d0d10;
-    --color-border: rgba(255, 255, 255, 0.08);
-    --color-border-subtle: rgba(255, 255, 255, 0.05);
+    --color-bg: #0B0B09;
+    --color-surface: #1A1A17;
+    --color-primary: #F2D500;
+    --color-primary-hover: #D9BE00;
+    --color-text: #F5F3E8;
+    --color-text-muted: #A7A79D;
+    --color-border: #292923;
+    --color-border-subtle: rgba(242, 213, 0, 0.25);
     --max-w: 1280px;
   }
 
@@ -20,7 +24,7 @@
   body {
     font-family: var(--font-sans);
     background-color: var(--color-bg);
-    color: #ffffff;
+    color: #F5F3E8;
     overflow-x: hidden;
   }
 
@@ -32,6 +36,7 @@
   h6 {
     font-family: var(--font-heading);
     letter-spacing: -0.02em;
+    color: #F5F3E8;
   }
 }
 
@@ -41,16 +46,16 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: #09090b;
+  background: #0B0B09;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #27272a;
+  background: #292923;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #ef4444;
+  background: #F2D500;
 }
 
 /* ─── Display / Hero Typography ─────────────────────────────── */
@@ -72,10 +77,11 @@
   font-weight: 700;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.45);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #A7A79D;
+  border: 1px solid #292923;
   border-radius: 9999px;
   padding: 0.35rem 0.9rem;
+  background: #1A1A17;
 }
 
 .section-label::before {
@@ -84,7 +90,7 @@
   width: 5px;
   height: 5px;
   border-radius: 9999px;
-  background: #dc2626;
+  background: #F2D500;
   flex-shrink: 0;
 }
 
@@ -92,7 +98,7 @@
 .divider-line {
   width: 100%;
   height: 1px;
-  background: rgba(255, 255, 255, 0.07);
+  background: #292923;
 }
 
 /* ─── Editorial Number / Index ──────────────────────────────── */
@@ -101,7 +107,7 @@
   font-size: clamp(3rem, 6vw, 5rem);
   font-weight: 900;
   line-height: 1;
-  color: rgba(255, 255, 255, 0.07);
+  color: rgba(245, 243, 232, 0.07);
   user-select: none;
   pointer-events: none;
   letter-spacing: -0.03em;
@@ -109,12 +115,12 @@
 
 /* ─── Grayscale image treatment ─────────────────────────────── */
 .img-mono {
-  filter: grayscale(80%) contrast(1.1) brightness(0.85);
+  filter: grayscale(40%) contrast(1.05) brightness(0.9);
   transition: filter 0.5s ease;
 }
 
 .img-mono:hover {
-  filter: grayscale(40%) contrast(1.05) brightness(0.95);
+  filter: grayscale(10%) contrast(1.05) brightness(0.95);
 }
 
 /* ─── Premium Card Hover Lift ───────────────────────────────── */
@@ -124,12 +130,12 @@
 
 .card-lift:hover {
   transform: translateY(-6px);
-  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.6);
 }
 
 /* ─── Background Utilities ──────────────────────────────────── */
 .bg-grid-pattern {
-  background-image: radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-image: radial-gradient(rgba(242, 213, 0, 0.05) 1px, transparent 1px);
   background-size: 28px 28px;
 }
 
@@ -146,7 +152,7 @@
 
 /* ─── Text Utilities ─────────────────────────────────────────── */
 .text-gradient-white {
-  background: linear-gradient(180deg, #ffffff 0%, rgba(255, 255, 255, 0.6) 100%);
+  background: linear-gradient(180deg, #F5F3E8 0%, rgba(245, 243, 232, 0.6) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -155,7 +161,7 @@
 /* ─── Focus Visible ─────────────────────────────────────────── */
 *:focus-visible {
   outline: none;
-  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.3);
+  box-shadow: 0 0 0 2px #F2D500;
 }
 
 /* ─── Button System ─────────────────────────────────────────── */
@@ -178,14 +184,15 @@
 }
 
 .btn-primary {
-  background-color: #dc2626;
-  color: #ffffff;
-  box-shadow: 0 8px 24px -4px rgba(220, 38, 38, 0.35);
+  background-color: #F2D500;
+  color: #0B0B09;
+  box-shadow: 0 8px 24px -4px rgba(242, 213, 0, 0.35);
 }
 
 .btn-primary:hover {
-  background-color: #b91c1c;
-  box-shadow: 0 12px 32px -4px rgba(220, 38, 38, 0.55);
+  background-color: #D9BE00;
+  color: #0B0B09;
+  box-shadow: 0 12px 32px -4px rgba(242, 213, 0, 0.55);
   transform: translateY(-2px);
 }
 
@@ -195,13 +202,14 @@
 
 .btn-secondary {
   background-color: transparent;
-  color: #ffffff;
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: #F5F3E8;
+  border: 1px solid rgba(245, 243, 232, 0.25);
 }
 
 .btn-secondary:hover {
-  background-color: rgba(255, 255, 255, 0.06);
-  border-color: rgba(255, 255, 255, 0.35);
+  background-color: rgba(242, 213, 0, 0.05);
+  border-color: #F2D500;
+  color: #F2D500;
   transform: translateY(-2px);
 }
 
@@ -211,14 +219,14 @@
 
 .btn-outline {
   background-color: transparent;
-  color: rgba(255, 255, 255, 0.85);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #F5F3E8;
+  border: 1px solid rgba(245, 243, 232, 0.25);
 }
 
 .btn-outline:hover {
-  background-color: rgba(255, 255, 255, 0.06);
-  border-color: rgba(255, 255, 255, 0.45);
-  color: #ffffff;
+  background-color: rgba(242, 213, 0, 0.05);
+  border-color: #F2D500;
+  color: #F2D500;
 }
 
 .btn-whatsapp {
@@ -239,7 +247,7 @@
   align-items: center;
   gap: 5rem;
   padding: 5rem 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  border-bottom: 1px solid #292923;
 }
 
 .feature-row:last-child {
@@ -313,41 +321,18 @@
   }
 }
 
-/* ─── Scroll Reveal Animations ──────────────────────────────── */
-@keyframes fadeSlideUp {
-  from {
-    opacity: 0;
-    transform: translateY(32px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
-}
-
 /* ─── Glass Panel ───────────────────────────────────────────── */
 .glass-panel {
-  background: rgba(14, 14, 18, 0.72);
+  background: rgba(26, 26, 23, 0.85);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.07);
+  border: 1px solid #292923;
 }
 
 /* ─── Pricing Card ─────────────────────────────────────────── */
 .pricing-card {
-  background: #0c0c0f;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: #1A1A17;
+  border: 1px solid #292923;
   border-radius: 1.25rem;
   padding: 2rem;
   display: flex;
@@ -356,20 +341,21 @@
 }
 
 .pricing-card:hover {
-  border-color: rgba(255, 255, 255, 0.18);
+  border-color: rgba(242, 213, 0, 0.4);
   transform: translateY(-4px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
 }
 
 .pricing-card.featured {
-  background: #111117;
-  border-color: rgba(255, 255, 255, 0.22);
-  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.08), 0 20px 60px rgba(0, 0, 0, 0.5);
+  background: #1A1A17;
+  border-color: #F2D500;
+  box-shadow: 0 0 0 1px rgba(242, 213, 0, 0.3), 0 20px 60px rgba(0, 0, 0, 0.6);
   transform: translateY(-8px);
 }
 
 .pricing-card.featured:hover {
   transform: translateY(-14px);
+  border-color: #F2D500;
 }
 
 /* ─── Reduced Motion Override ───────────────────────────────── */

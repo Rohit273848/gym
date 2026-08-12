@@ -6,37 +6,65 @@ import { GYM_IMAGES } from '../../data/gymImages';
 const galleryItems = [
   {
     id: 'g1',
-    title: 'Strength Zone',
-    category: 'Equipment & Weights',
+    title: 'Weight Room & Equipment',
+    category: 'Free Weights & Machines',
     image: GYM_IMAGES.gallery.strengthZone,
     size: 'lg:col-span-2 lg:row-span-2',
   },
   {
     id: 'g2',
-    title: 'Cardio Zone',
-    category: 'Treadmills & Endurance',
+    title: 'Cardio Machinery',
+    category: 'Endurance & Cardio',
     image: GYM_IMAGES.gallery.cardioZone,
     size: 'lg:col-span-1 lg:row-span-1',
   },
   {
     id: 'g3',
-    title: 'Gym Interior',
-    category: 'Air Conditioned Floor',
-    image: GYM_IMAGES.gallery.interior,
+    title: 'Dumbbell Rack & Free Weights',
+    category: 'Strength Zone',
+    image: GYM_IMAGES.gallery.dumbbellRack,
     size: 'lg:col-span-1 lg:row-span-1',
   },
   {
     id: 'g4',
-    title: '1-on-1 Personal Training',
-    category: 'Guided Workouts',
+    title: 'Barbells & Personal Training',
+    category: 'Guided Sessions',
     image: GYM_IMAGES.gallery.personalTraining,
     size: 'lg:col-span-1 lg:row-span-1',
   },
   {
     id: 'g5',
-    title: 'Jerai Fitness Setup',
-    category: 'World Class Machines',
+    title: 'Yellow Accent Gym Arena',
+    category: 'Gym Floor Design',
+    image: GYM_IMAGES.gallery.yellowAccents,
+    size: 'lg:col-span-1 lg:row-span-1',
+  },
+  {
+    id: 'g6',
+    title: 'High-Grade Equipment',
+    category: 'Fitness Gear',
     image: GYM_IMAGES.gallery.equipment,
+    size: 'lg:col-span-1 lg:row-span-1',
+  },
+  {
+    id: 'g7',
+    title: 'Mirror Reflection Zone',
+    category: 'Form & Posture Arena',
+    image: GYM_IMAGES.gallery.mirrorReflection,
+    size: 'lg:col-span-1 lg:row-span-1',
+  },
+  {
+    id: 'g8',
+    title: 'Flex & Positive Vibes',
+    category: 'Motivating Atmosphere',
+    image: GYM_IMAGES.gallery.flexVibes,
+    size: 'lg:col-span-1 lg:row-span-1',
+  },
+  {
+    id: 'g9',
+    title: 'Full Equipment View',
+    category: 'Workout Floor',
+    image: GYM_IMAGES.gallery.interior,
     size: 'lg:col-span-1 lg:row-span-1',
   },
 ];
@@ -87,25 +115,25 @@ export default function Gallery() {
   const activeItem = selectedIndex !== null ? galleryItems[selectedIndex] : null;
 
   return (
-    <section id="gallery" className="py-28 sm:py-36 bg-[#070709] relative overflow-hidden">
-      {/* Ambient Red Glow */}
-      <div className="absolute top-1/4 right-10 w-96 h-96 bg-red-600/5 rounded-full blur-[160px] pointer-events-none" />
+    <section id="gallery" className="py-28 sm:py-36 bg-[#0B0B09] relative overflow-hidden">
+      {/* Ambient Yellow Glow */}
+      <div className="absolute top-1/4 right-10 w-96 h-96 bg-[#F2D500]/5 rounded-full blur-[160px] pointer-events-none" />
 
       <div className="max-w-[1400px] mx-auto px-6 sm:px-10 lg:px-12 relative z-10">
         
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 sm:mb-24 gap-6">
           <div>
-            <div className="section-label mb-6">Inside Fitness Heaven</div>
-            <h2 className="gsap-reveal-title font-display text-[clamp(2.4rem,5.5vw,5.5rem)] uppercase leading-[0.88] text-white">
+            <div className="section-label mb-6">Inside Reshape Fitness</div>
+            <h2 className="gsap-reveal-title font-display text-[clamp(2.4rem,5.5vw,5.5rem)] uppercase leading-[0.88] text-[#F5F3E8]">
               EXPLORE OUR <br />
-              <span style={{ WebkitTextStroke: '1.5px rgba(255,255,255,0.25)', color: 'transparent' }}>
-                5000 SQ. FT. ARENA
+              <span style={{ WebkitTextStroke: '1.5px rgba(245,243,232,0.25)', color: 'transparent' }}>
+                FITNESS ARENA
               </span>
             </h2>
           </div>
-          <p className="text-sm text-white/40 max-w-md leading-relaxed">
-            Take a look inside our premium unisex fitness center featuring 100% Jerai equipment, spacious workout zones, and state-of-the-art facilities.
+          <p className="text-sm text-[#A7A79D] max-w-md leading-relaxed">
+            Take a look inside Reshape Fitness Club in Chhatrapati Sambhajinagar featuring quality equipment, clean workout zones, and motivating atmosphere.
           </p>
         </div>
 
@@ -119,7 +147,7 @@ export default function Gallery() {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: idx * 0.08 }}
               onClick={() => setSelectedIndex(idx)}
-              className={`group relative rounded-2xl overflow-hidden cursor-pointer border border-white/[0.08] hover:border-white/30 transition-all duration-300 ${item.size}`}
+              className={`group relative rounded-2xl overflow-hidden cursor-pointer border border-[#292923] hover:border-[#F2D500]/40 transition-all duration-300 ${item.size}`}
             >
               <img
                 src={item.image}
@@ -136,10 +164,10 @@ export default function Gallery() {
 
               {/* Text overlay */}
               <div className="absolute bottom-6 left-6 right-6">
-                <span className="text-[10px] font-bold tracking-[0.2em] text-red-500 uppercase block mb-1">
+                <span className="text-[10px] font-bold tracking-[0.2em] text-[#F2D500] uppercase block mb-1">
                   {item.category}
                 </span>
-                <h3 className="font-display text-2xl text-white uppercase tracking-tight">
+                <h3 className="font-display text-2xl text-[#F5F3E8] uppercase tracking-tight">
                   {item.title}
                 </h3>
               </div>
@@ -166,18 +194,18 @@ export default function Gallery() {
               onClick={(e) => e.stopPropagation()}
             >
               <div className="flex items-center gap-3">
-                <span className="font-mono text-xs text-white/40 tracking-widest uppercase">
+                <span className="font-mono text-xs text-[#A7A79D] tracking-widest uppercase">
                   {selectedIndex + 1} / {galleryItems.length}
                 </span>
                 <div className="h-3 w-px bg-white/20" />
-                <span className="text-xs font-heading font-bold text-white/80 uppercase tracking-wide">
+                <span className="text-xs font-heading font-bold text-[#F5F3E8]/80 uppercase tracking-wide">
                   {activeItem.category}
                 </span>
               </div>
 
               <button
                 onClick={handleClose}
-                className="p-3 bg-white/10 hover:bg-white/20 border border-white/20 text-white rounded-full transition-all focus:outline-none focus:ring-2 focus:ring-red-500"
+                className="p-3 bg-white/10 hover:bg-white/20 border border-white/20 text-[#F5F3E8] rounded-full transition-all focus:outline-none focus:ring-2 focus:ring-[#F2D500]"
                 aria-label="Close full preview"
               >
                 <X className="w-5 h-5" />
@@ -234,7 +262,7 @@ export default function Gallery() {
                   {activeItem.title}
                 </h4>
                 <p className="text-xs text-white/40 mt-0.5">
-                  Fitness Heaven Gym &amp; Sports Arena
+                  Reshape Fitness Club
                 </p>
               </div>
 

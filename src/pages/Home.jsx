@@ -8,6 +8,7 @@ import Trainers from '../components/Trainers/Trainers';
 import Gallery from '../components/Gallery/Gallery';
 import Membership from '../components/Membership/Membership';
 import PersonalTraining from '../components/PersonalTraining/PersonalTraining';
+import Testimonials from '../components/Testimonials/Testimonials';
 import Payment from '../components/Payment/Payment';
 import Contact from '../components/Contact/Contact';
 import CTABanner from '../components/CTABanner/CTABanner';
@@ -53,6 +54,7 @@ export default function Home() {
         <Gallery />
         <Membership onSelectPlan={handleSelectPlan} />
         <PersonalTraining onSelectPlan={handleSelectPlan} />
+        <Testimonials />
         <Payment selectedAmount={selectedPlanAmount} selectedPlanName={selectedPlanName} />
         <Contact />
         <CTABanner />
@@ -62,4 +64,3 @@ export default function Home() {
     </div>
   );
 }
-
