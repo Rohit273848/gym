@@ -311,6 +311,6 @@ export const GYM_DATA = {
       { days: "Tuesday - Saturday", hours: "6:00 AM - 10:00 PM" },
       { days: "Sunday", hours: "Closed" }
     ],
-    googleMapsUrl: "https://maps.google.com/maps?q=Gut+no.+103,+plot+no.15,+Prithviraj+Nagar,+Satara+Deolai+Parisar,+Chhatrapati+Sambhajinagar,+Maharashtra+431009"
+    googleMapsUrl: "https://maps.app.goo.gl/Fo68PG6xXVnFPjFd9"
   }
 };

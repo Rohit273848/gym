@@ -159,10 +159,15 @@ export default function Hero() {
             </p>
             {GYM_DATA.hero.quickInfo && (
               <p className="hidden sm:flex items-center gap-2 text-xs text-[#F5F3E8]/70 pt-0.5">
-                <span className="inline-flex items-center gap-1 text-[#F2D500]">
+                <a
+                  href={GYM_DATA.contact.googleMapsUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-1 text-[#F2D500] hover:underline"
+                >
                   <MapPin className="w-3 h-3" />
                   {GYM_DATA.hero.quickInfo.location}
-                </span>
+                </a>
                 <span className="text-[#292923]">•</span>
                 <span>{GYM_DATA.hero.quickInfo.timing}</span>
               </p>

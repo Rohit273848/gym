@@ -4,7 +4,7 @@ import { MapPin, PhoneCall, Clock, Navigation, Phone, ShieldCheck } from 'lucide
 import { GYM_DATA } from '../../data/gymData';
 
 export default function Contact() {
-  const embedUrl = "https://maps.google.com/maps?q=Gut+no.+103,+plot+no.15,+Prithviraj+Nagar,+Satara+Deolai+Parisar,+Chhatrapati+Sambhajinagar,+Maharashtra+431009&t=&z=15&ie=UTF8&iwloc=&output=embed";
+  const embedUrl = "https://maps.google.com/maps?q=19.8446357,75.3424088&t=&z=16&ie=UTF8&iwloc=&output=embed";
 
   return (
     <section id="contact" className="py-28 sm:py-36 bg-[#0B0B09] relative">

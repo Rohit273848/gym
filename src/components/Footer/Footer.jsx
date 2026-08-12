@@ -59,12 +59,17 @@ export default function Footer() {
             <h4 className="font-heading font-black text-xs text-[#F5F3E8] uppercase tracking-[0.18em] mb-6">
               Contact &amp; Schedule
             </h4>
-            <div className="flex items-start gap-3 text-xs">
+            <a
+              href={GYM_DATA.contact.googleMapsUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="flex items-start gap-3 text-xs hover:text-[#F2D500] transition-colors group"
+            >
               <MapPin className="w-4 h-4 text-[#F2D500] shrink-0 mt-0.5" />
-              <span className="leading-relaxed text-[#A7A79D]">
+              <span className="leading-relaxed text-[#A7A79D] group-hover:text-[#F5F3E8] transition-colors">
                 {GYM_DATA.contact.fullAddress}
               </span>
-            </div>
+            </a>
             <div className="flex items-center gap-3 text-xs">
               <Phone className="w-4 h-4 text-[#F2D500] shrink-0" />
               <a href={`tel:${GYM_DATA.contact.phoneRaw}`} className="text-[#F5F3E8] hover:text-[#F2D500] font-bold transition-colors">
